@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Locadora{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+</head>
+<body>
+    <header>
+        <h1>Locadora de Veículos</h1>
+        <nav>
+  <a href="{{ url_for('index') }}">Início</a>
+  <a href="{{ url_for('carros') }}">Carros</a>
+  {% if 'usuario' in session %}
+    <span>Bem-vindo, {{ session['usuario'] }}!</span>
+    <a href="{{ url_for('logout') }}">Sair</a>
+  {% else %}
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
+  {% endif %}
+</nav>
+
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
