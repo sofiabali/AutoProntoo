@@ -59,7 +59,6 @@ def carros():
     conn.close()
     return render_template('carros.html', carros=carros)
 
-
 # ----------------------------------------
 # CADASTRO DE CLIENTE
 # ----------------------------------------
@@ -115,6 +114,29 @@ def logout():
     session.pop('usuario', None)
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
+
+# ----------------------------------------
+# CADASTRO DE CARROS (NOVO)
+# ----------------------------------------
+@app.route('/cadastro_carro', methods=['GET', 'POST'])
+def cadastro_carro():
+    if request.method == 'POST':
+        modelo = request.form['modelo']
+        marca = request.form['marca']
+        ano = request.form['ano']
+        valor_diaria = request.form['valor_diaria']
+
+        conn = conectar_bd()
+        conn.execute('''
+            INSERT INTO veiculos (modelo, marca, ano, valor_diaria)
+            VALUES (?, ?, ?, ?)
+        ''', (modelo, marca, ano, valor_diaria))
+        conn.commit()
+        conn.close()
+        flash('Carro adicionado com sucesso!', 'success')
+        return redirect(url_for('carros'))
+
+    return render_template('cadastro_carro.html')
 
 # ----------------------------------------
 # EXECUÇÃO
