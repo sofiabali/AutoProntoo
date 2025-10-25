@@ -131,7 +131,7 @@ nav a:hover::after {
 
 .hero-image img {
     width: 90%;
-    max-width: 480px;
+    max-width: 680px;
     animation: float 3s ease-in-out infinite;
 }
 
