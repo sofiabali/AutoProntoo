@@ -12,7 +12,6 @@
         <nav>
             <a href="{{ url_for('index') }}">Início</a>
             <a href="{{ url_for('carros') }}">Carros</a>
-            <a href="{{ url_for('cadastro_carro') }}">Cadastrar Carro</a> <!-- NOVO LINK -->
 
             {% if 'usuario' in session %}
                 <span>Bem-vindo, {{ session['usuario'] }}!</span>
