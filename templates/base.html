@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Locadora{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  <meta charset="UTF-8">
+  <title>{% block title %}AutoPronto{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>AutoPronto</h1>
-        <nav>
-            <a href="{{ url_for('index') }}">Início</a>
-            <a href="{{ url_for('carros') }}">Carros</a>
+  <header>
+    <h1>AutoPronto</h1>
+    <nav>
+      <a href="{{ url_for('index') }}">Início</a>
+      <a href="{{ url_for('carros') }}">Carros</a>
+      {% if 'usuario' in session %}
+        <a href="{{ url_for('logout') }}">Sair</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
+      {% endif %}
+      <a href="{{ url_for('carrinho') }}" class="carrinho-link">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+    </nav>
+  </header>
 
-            {% if 'usuario' in session %}
-                <span>Bem-vindo, {{ session['usuario'] }}!</span>
-                <a href="{{ url_for('logout') }}">Sair</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
-            {% endif %}
-        </nav>
-    </header>
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    {% block content %}{% endblock %}
+  </main>
 </body>
 </html>

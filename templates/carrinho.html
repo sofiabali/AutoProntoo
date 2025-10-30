@@ -7,6 +7,7 @@
   <div class="carros-grid">
     {% for carro in carrinho %}
       <div class="car-card">
+        <img src="{{ url_for('static', filename='img/' + carro.imagem) }}" alt="{{ carro.modelo }}">
         <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
         <p>Ano: {{ carro.ano }}</p>
         <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>

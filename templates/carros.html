@@ -1,21 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Carros Disponíveis - AutoPronto{% endblock %}
-
+{% block title %}Carros Disponíveis{% endblock %}
 {% block content %}
-<section class="lista-carros">
-    <h2> Carros Disponíveis</h2>
-    <p>Escolha o veículo ideal para sua viagem!</p>
+<h2>Carros Disponíveis</h2>
+<p>Escolha o veículo ideal para sua viagem!</p>
 
-    <div class="carros-grid">
-        {% for carro in carros %}
-    <div class="car-card">
-    <img src="{{ url_for('static', filename='img/' + (carro['imagem'] or 'default.png')) }}" alt="{{ carro['modelo'] }}">
-    <h3>{{ carro['marca'] }} {{ carro['modelo'] }}</h3>
-    <p>Ano: {{ carro['ano'] }}</p>
-    <p>Diária: R$ {{ carro['valor_diaria'] }}</p>
+<div class="carros-grid">
+  {% for carro in carros %}
+  <div class="car-card">
+    <img src="{{ url_for('static', filename='img/' + carro.imagem) }}" alt="{{ carro.modelo }}">
+    <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
+    <p>Ano: {{ carro.ano }}</p>
+    <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
+    <a class="btn-reservar" href="{{ url_for('reservar', carro_id=carro.id) }}">Reservar</a>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
-
-    </div>
-</section>
 {% endblock %}
