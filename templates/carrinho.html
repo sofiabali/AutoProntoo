@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Carrinho{% endblock %}
+{% block content %}
+<h2>🛒 Meu Carrinho</h2>
+
+{% if carrinho %}
+  <div class="carros-grid">
+    {% for carro in carrinho %}
+      <div class="car-card">
+        <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
+        <p>Ano: {{ carro.ano }}</p>
+        <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
+        <a class="btn-remover" href="{{ url_for('remover', carro_id=carro.id) }}">Remover</a>
+      </div>
+    {% endfor %}
+  </div>
+  <h3>Total: R$ {{ "%.2f"|format(total) }}</h3>
+{% else %}
+  <p>Seu carrinho está vazio 😢</p>
+{% endif %}
+{% endblock %}
