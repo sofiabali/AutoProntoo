@@ -4,9 +4,8 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'segredo123'
 
-# ----------------------------------------
 # BANCO DE DADOS
-# ----------------------------------------
+
 def conectar_bd():
     conn = sqlite3.connect('locadora.db')
     conn.row_factory = sqlite3.Row
