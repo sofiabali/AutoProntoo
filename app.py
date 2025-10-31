@@ -160,6 +160,12 @@ def remover(carro_id):
     flash('Carro removido do carrinho.', 'info')
     return redirect(url_for('carrinho'))
 
+# limpar carrinho após finalizar reserva
+@app.route('/remover_todos')
+def remover_todos():
+    session['carrinho'] = []
+    return '', 204  # resposta vazia 
+
 # execuçao
 if __name__ == '__main__':
     app.run(debug=True)

@@ -71,3 +71,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });
+
+// ====== MODAL DE FINALIZAÇÃO ======
+document.addEventListener('DOMContentLoaded', () => {
+  const finalizarBtn = document.querySelector('.btn-finalizar');
+  const modal = document.getElementById('confirmModal');
+  if (!finalizarBtn || !modal) return;
+
+  const confirmBtn = document.getElementById('confirmBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+
+  finalizarBtn.addEventListener('click', () => modal.style.display = 'flex');
+  cancelBtn.addEventListener('click', () => modal.style.display = 'none');
+
+  confirmBtn.addEventListener('click', async () => {
+    await fetch('/remover_todos');
+    modal.style.display = 'none';
+    alert('Reserva finalizada com sucesso! 🚗');
+    window.location.href = '/carros';
+  });
+});

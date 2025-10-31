@@ -1,22 +1,39 @@
 {% extends "base.html" %}
 {% block title %}Carrinho{% endblock %}
-{% block content %}
-<h2>🛒 Meu Carrinho</h2>
 
-{% if carrinho %}
-  <div class="carros-grid">
-    {% for carro in carrinho %}
-      <div class="car-card">
-        <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
-        <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
-        <p>Ano: {{ carro.ano }}</p>
-        <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
-        <a class="btn-remover" href="{{ url_for('remover', carro_id=carro.id) }}">Remover</a>
-      </div>
-    {% endfor %}
+{% block content %}
+<div class="lista-carros">
+  <h2>🛒 Meu Carrinho</h2>
+
+  {% if carrinho %}
+    <div class="carros-grid">
+      {% for carro in carrinho %}
+        <div class="car-card">
+          <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
+          <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
+          <p>Ano: {{ carro.ano }}</p>
+          <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
+          <a class="btn-remover" href="{{ url_for('remover', carro_id=carro.id) }}">Remover</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Total e botão de finalização -->
+    <h3 class="carrinho-total">Total: R$ {{ "%.2f"|format(total) }}</h3>
+<button class="btn-finalizar">Finalizar Reserva</button>
+
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <h3>Confirmar reserva?</h3>
+    <p>Deseja realmente finalizar sua reserva?</p>
+    <button id="confirmBtn">Confirmar</button>
+    <button id="cancelBtn">Cancelar</button>
   </div>
-  <h3>Total: R$ {{ "%.2f"|format(total) }}</h3>
-{% else %}
-  <p>Seu carrinho está vazio 😢</p>
-{% endif %}
+</div>
+
+  {% else %}
+    <p>Seu carrinho está vazio 😢</p>
+  {% endif %}
+</div>
+
 {% endblock %}
