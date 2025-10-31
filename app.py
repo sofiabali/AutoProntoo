@@ -44,9 +44,6 @@ def criar_tabelas():
 
 criar_tabelas()
 
-# ----------------------------------------
-# ROTAS PRINCIPAIS
-# ----------------------------------------
 @app.route('/')
 def index():
     usuario = session.get('usuario')
@@ -59,30 +56,7 @@ def carros():
     conn.close()
     return render_template('carros.html', carros=carros)
 
-# ----------------------------------------
-# CADASTRO DE VEÍCULOS
-# ----------------------------------------
-@app.route('/cadastrar', methods=['GET', 'POST'])
-def cadastrar():
-    if request.method == 'POST':
-        modelo = request.form['modelo']
-        marca = request.form['marca']
-        ano = request.form['ano']
-        valor_diaria = request.form['valor_diaria']
 
-        conn = conectar_bd()
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO veiculos (modelo, marca, ano, valor_diaria)
-            VALUES (?, ?, ?, ?)
-        ''', (modelo, marca, ano, valor_diaria))
-        conn.commit()
-        conn.close()
-
-        flash('Veículo cadastrado com sucesso!', 'success')
-        return redirect(url_for('carros'))
-
-    return render_template('cadastrar.html')
 
 # ----------------------------------------
 # CADASTRO DE CLIENTE
