@@ -4,9 +4,7 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'segredo123'  # chave da sessão
 
-# ----------------------------------------
-# BANCO DE DADOS
-# ----------------------------------------
+# banco de dados
 def conectar_bd():
     conn = sqlite3.connect('locadora.db')
     conn.row_factory = sqlite3.Row
@@ -58,9 +56,7 @@ def carros():
 
 
 
-# ----------------------------------------
-# CADASTRO DE CLIENTE
-# ----------------------------------------
+# cadastro cliente
 @app.route('/cadastro_cliente', methods=['GET', 'POST'])
 def cadastro_cliente():
     if request.method == 'POST':
@@ -84,9 +80,7 @@ def cadastro_cliente():
 
     return render_template('cadastro_cliente.html')
 
-# ----------------------------------------
-# LOGIN / LOGOUT DE CLIENTE
-# ----------------------------------------
+# login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -114,9 +108,7 @@ def logout():
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
 
-# ----------------------------------------
-# CARRINHO DE RESERVAS
-# ----------------------------------------
+# carrinho de reservas
 @app.route('/reservar/<int:carro_id>')
 def reservar(carro_id):
     conn = conectar_bd()
@@ -158,8 +150,6 @@ def remover(carro_id):
     flash('Carro removido do carrinho.', 'info')
     return redirect(url_for('carrinho'))
 
-# ----------------------------------------
-# EXECUÇÃO
-# ----------------------------------------
+# execução
 if __name__ == '__main__':
     app.run(debug=True)
