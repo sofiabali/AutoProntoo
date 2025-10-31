@@ -1,6 +1,6 @@
-// ----------------------------
+
 // FADE-IN DAS SEÇÕES
-// ----------------------------
+
 const fadeElements = document.querySelectorAll('.fade-in');
 
 const observer = new IntersectionObserver(entries => {
@@ -14,9 +14,7 @@ const observer = new IntersectionObserver(entries => {
 fadeElements.forEach(el => observer.observe(el));
 
 
-// ----------------------------
 // INTERAÇÃO NOS CARDS DE VEÍCULOS
-// ----------------------------
 document.querySelectorAll('.carro-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
         card.style.transform = 'scale(1.05)';
@@ -29,9 +27,7 @@ document.querySelectorAll('.carro-card').forEach(card => {
 });
 
 
-// ----------------------------
 // BOTÃO VOLTAR AO TOPO
-// ----------------------------
 const backToTop = document.createElement('button');
 backToTop.textContent = '↑';
 backToTop.id = 'backToTop';
@@ -44,9 +40,7 @@ window.addEventListener('scroll', () => {
 });
 
 
-// ----------------------------
 // FLASH MESSAGES AUTOMÁTICAS
-// ----------------------------
 document.querySelectorAll('.flash').forEach(msg => {
     setTimeout(() => {
         msg.style.opacity = '0';
@@ -55,9 +49,7 @@ document.querySelectorAll('.flash').forEach(msg => {
 });
 
 
-// ----------------------------
 // EFEITO NOS INPUTS DE FORMULÁRIO
-// ----------------------------
 document.querySelectorAll('input, textarea').forEach(input => {
     input.addEventListener('focus', () => {
         input.style.borderColor = '#ff6600';
@@ -70,9 +62,8 @@ document.querySelectorAll('input, textarea').forEach(input => {
 });
 
 
-// ----------------------------
 // NAVEGAÇÃO SUAVE (SMOOTH SCROLL)
-// ----------------------------
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
