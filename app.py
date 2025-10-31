@@ -4,7 +4,7 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'segredo123'  # chave da sessão
 
-# banco de dados
+#banco de dados
 def conectar_bd():
     conn = sqlite3.connect('locadora.db')
     conn.row_factory = sqlite3.Row
@@ -21,7 +21,8 @@ def criar_tabelas():
             modelo TEXT NOT NULL,
             marca TEXT NOT NULL,
             ano INTEGER,
-            valor_diaria REAL
+            valor_diaria REAL,
+            imagem TEXT
         )
     ''')
 
@@ -37,11 +38,15 @@ def criar_tabelas():
         )
     ''')
 
+    # garante que veículos antigos tenham imagem sem foto
+    cursor.execute("UPDATE veiculos SET imagem = 'semfoto.png' WHERE imagem IS NULL OR imagem = ''")
+
     conn.commit()
     conn.close()
 
 criar_tabelas()
 
+#rotas principais
 @app.route('/')
 def index():
     usuario = session.get('usuario')
@@ -53,8 +58,6 @@ def carros():
     carros = conn.execute('SELECT * FROM veiculos').fetchall()
     conn.close()
     return render_template('carros.html', carros=carros)
-
-
 
 # cadastro cliente
 @app.route('/cadastro_cliente', methods=['GET', 'POST'])
@@ -108,7 +111,7 @@ def logout():
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
 
-# carrinho de reservas
+# carrinho para reservas
 @app.route('/reservar/<int:carro_id>')
 def reservar(carro_id):
     conn = conectar_bd()
@@ -122,18 +125,25 @@ def reservar(carro_id):
     if 'carrinho' not in session:
         session['carrinho'] = []
 
+    # verifica se já está no carrinho
     for item in session['carrinho']:
         if item['id'] == carro['id']:
             flash('Esse carro já está no seu carrinho.', 'info')
             return redirect(url_for('carrinho'))
 
+    # garante que sempre haja uma imagem
+    imagem = carro['imagem'] if 'imagem' in carro.keys() and carro['imagem'] else 'semfoto.png'
+
+    # adiciona o carro ao carrinho
     session['carrinho'].append({
         'id': carro['id'],
         'marca': carro['marca'],
         'modelo': carro['modelo'],
         'ano': carro['ano'],
-        'valor_diaria': carro['valor_diaria']
+        'valor_diaria': carro['valor_diaria'],
+        'imagem': imagem
     })
+
     flash(f'{carro["modelo"]} adicionado ao carrinho!', 'success')
     return redirect(url_for('carrinho'))
 
@@ -150,6 +160,6 @@ def remover(carro_id):
     flash('Carro removido do carrinho.', 'info')
     return redirect(url_for('carrinho'))
 
-# execução
+# execuçao
 if __name__ == '__main__':
     app.run(debug=True)
