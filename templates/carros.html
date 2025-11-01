@@ -1,12 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Carros Disponíveis{% endblock %}
+
 {% block content %}
 <h2 style="text-align: center;">Carros Disponíveis</h2>
 <p style="text-align: center;">Escolha o veículo ideal para sua viagem!</p>
 
+<!-- Formulário de filtros -->
+<form method="get" class="filtros-carros">
+  <label>Categoria:</label>
+  <select name="categoria">
+    <option value="">Todos</option>
+    <option value="Hatch" {% if request.args.get('categoria') == 'Hatch' %}selected{% endif %}>Hatch</option>
+    <option value="Sedan" {% if request.args.get('categoria') == 'Sedan' %}selected{% endif %}>Sedan</option>
+    <option value="SUV" {% if request.args.get('categoria') == 'SUV' %}selected{% endif %}>SUV</option>
+  </select>
+
+  <label>Tipo:</label>
+  <select name="tipo">
+    <option value="">Todos</option>
+    <option value="Seminovo" {% if request.args.get('tipo') == 'Seminovo' %}selected{% endif %}>Seminovo</option>
+    <option value="Promocao" {% if request.args.get('tipo') == 'Promocao' %}selected{% endif %}>Promoção</option>
+  </select>
+
+  <label>Preço até:</label>
+  <input type="number" name="preco" placeholder="R$" value="{{ request.args.get('preco', '') }}">
+
+  <label>Ano mínimo:</label>
+  <input type="number" name="ano" placeholder="Ex: 2018" value="{{ request.args.get('ano', '') }}">
+
+  <button type="submit">Filtrar</button>
+</form>
+
+<!-- Grid de carros -->
 <div class="carros-grid">
   {% for carro in carros %}
   <div class="car-card">
+    <!-- Badge aparece apenas se o filtro de tipo estiver ativo -->
+    {% if carro.tipo and request.args.get('tipo') %}
+    <div class="badge {{ carro.tipo|lower }}">{{ carro.tipo }}</div>
+    {% endif %}
+
     <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
     <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
     <p>Ano: {{ carro.ano }}</p>

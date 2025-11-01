@@ -61,10 +61,34 @@ def index():
 
 @app.route('/carros')
 def carros():
+    # pegar filtros do request
+    categoria = request.args.get('categoria', '').strip()
+    tipo = request.args.get('tipo', '').strip()
+    preco = request.args.get('preco', '').strip()
+    ano = request.args.get('ano', '').strip()
+
+    query = "SELECT * FROM veiculos WHERE 1=1"
+    params = []
+
+    if categoria:
+        query += " AND categoria = ?"
+        params.append(categoria)
+    if tipo:
+        query += " AND tipo = ?"
+        params.append(tipo)
+    if preco:
+        query += " AND valor_diaria <= ?"
+        params.append(float(preco))
+    if ano:
+        query += " AND ano >= ?"
+        params.append(int(ano))
+
     conn = conectar_bd()
-    carros = conn.execute('SELECT * FROM veiculos').fetchall()
+    carros = conn.execute(query, params).fetchall()
     conn.close()
+
     return render_template('carros.html', carros=carros)
+
 
 # cadastro cliente
 @app.route('/cadastro_cliente', methods=['GET', 'POST'])
