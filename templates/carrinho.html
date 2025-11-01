@@ -20,20 +20,47 @@
 
     <!-- Total e botão de finalização -->
     <h3 class="carrinho-total">Total: R$ {{ "%.2f"|format(total) }}</h3>
-<button class="btn-finalizar">Finalizar Reserva</button>
+    <button class="btn-finalizar">Finalizar Reserva</button>
 
-<div id="confirmModal" class="modal">
+   <!-- Modal de Checkout -->
+<div id="checkoutModal" class="modal" style="display: none;">
   <div class="modal-content">
-    <h3>Confirmar reserva?</h3>
-    <p>Deseja realmente finalizar sua reserva?</p>
-    <button id="confirmBtn">Confirmar</button>
-    <button id="cancelBtn">Cancelar</button>
+    <h3>Finalize sua Reserva</h3>
+    <form id="checkoutForm">
+      
+      <label for="dias">Quantidade de dias:</label>
+      <input type="number" id="dias" name="dias" min="1" required>
+
+      <label for="unidade">Local de retirada:</label>
+      <select id="unidade" name="unidade" required>
+        <option value="">Selecione uma unidade</option>
+        <option value="AutoPronto - SP">AutoPronto - SP</option>
+        <option value="AutoPronto - RJ">AutoPronto - RJ</option>
+        <option value="AutoPronto - MG">AutoPronto - MG</option>
+        <!-- Adicione outras unidades aqui -->
+      </select>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" name="telefone" required>
+
+      <label for="endereco">Endereço:</label>
+      <input type="text" id="endereco" name="endereco" required>
+
+      <div class="modal-buttons">
+        <button type="submit" class="btn-confirmar">Confirmar Reserva</button>
+        <button type="button" id="cancelBtn">Cancelar</button>
+      </div>
+    </form>
   </div>
 </div>
+
 
   {% else %}
     <p>Seu carrinho está vazio 😢</p>
   {% endif %}
 </div>
-
 {% endblock %}
+

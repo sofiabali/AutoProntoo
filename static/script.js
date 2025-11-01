@@ -75,22 +75,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ====== MODAL DE FINALIZAÇÃO ======
 document.addEventListener('DOMContentLoaded', () => {
   const finalizarBtn = document.querySelector('.btn-finalizar');
-  const modal = document.getElementById('confirmModal');
-  if (!finalizarBtn || !modal) return;
-
-  const confirmBtn = document.getElementById('confirmBtn');
+  const modal = document.getElementById('checkoutModal');
   const cancelBtn = document.getElementById('cancelBtn');
+  const checkoutForm = document.getElementById('checkoutForm');
 
-  finalizarBtn.addEventListener('click', () => modal.style.display = 'flex');
-  cancelBtn.addEventListener('click', () => modal.style.display = 'none');
+  if (!finalizarBtn || !modal || !cancelBtn || !checkoutForm) return;
 
-  confirmBtn.addEventListener('click', async () => {
-    await fetch('/remover_todos');
+  finalizarBtn.addEventListener('click', () => {
+    modal.style.display = 'flex';
+  });
+
+  cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none';
-    alert('Reserva finalizada com sucesso! 🚗');
-    window.location.href = '/carros';
+  });
+
+  checkoutForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(checkoutForm);
+
+    try {
+      const response = await fetch('/finalizar_reserva', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        alert('Reserva finalizada com sucesso! Verifique seu email. 📧');
+        window.location.href = '/carros';
+      } else {
+        alert('Erro ao finalizar a reserva.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Erro na requisição.');
+    }
   });
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // ===== CARROSSEL DE VANTAGENS =====

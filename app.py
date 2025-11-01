@@ -4,7 +4,7 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'segredo123'  # chave da sessão
 
-#banco de dados
+# Banco de dados
 def conectar_bd():
     conn = sqlite3.connect('locadora.db')
     conn.row_factory = sqlite3.Row
@@ -46,22 +46,19 @@ def criar_tabelas():
 
 criar_tabelas()
 
-#rotas principais
+# Rotas principais
 @app.route('/')
 def index():
     usuario = session.get('usuario')
 
-    # Conecta ao banco para pegar até 4 carros para destaque
     conn = conectar_bd()
     carros = conn.execute("SELECT * FROM veiculos LIMIT 4").fetchall()
     conn.close()
 
     return render_template('index.html', usuario=usuario, carros=carros)
 
-
 @app.route('/carros')
 def carros():
-    # pegar filtros do request
     categoria = request.args.get('categoria', '').strip()
     tipo = request.args.get('tipo', '').strip()
     preco = request.args.get('preco', '').strip()
@@ -89,8 +86,7 @@ def carros():
 
     return render_template('carros.html', carros=carros)
 
-
-# cadastro cliente
+# Cadastro cliente
 @app.route('/cadastro_cliente', methods=['GET', 'POST'])
 def cadastro_cliente():
     if request.method == 'POST':
@@ -114,7 +110,7 @@ def cadastro_cliente():
 
     return render_template('cadastro_cliente.html')
 
-# login
+# Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -142,7 +138,7 @@ def logout():
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
 
-# carrinho para reservas
+# Carrinho
 @app.route('/reservar/<int:carro_id>')
 def reservar(carro_id):
     conn = conectar_bd()
@@ -156,16 +152,14 @@ def reservar(carro_id):
     if 'carrinho' not in session:
         session['carrinho'] = []
 
-    # verifica se já está no carrinho
+    # Verifica se já está no carrinho
     for item in session['carrinho']:
         if item['id'] == carro['id']:
             flash('Esse carro já está no seu carrinho.', 'info')
             return redirect(url_for('carrinho'))
 
-    # garante que sempre haja uma imagem
     imagem = carro['imagem'] if 'imagem' in carro.keys() and carro['imagem'] else 'semfoto.png'
 
-    # adiciona o carro ao carrinho
     session['carrinho'].append({
         'id': carro['id'],
         'marca': carro['marca'],
@@ -184,6 +178,33 @@ def carrinho():
     total = sum([item['valor_diaria'] for item in carrinho])
     return render_template('carrinho.html', carrinho=carrinho, total=total)
 
+# Finalizar reserva sem envio de email
+@app.route('/finalizar_reserva', methods=['POST'])
+def finalizar_reserva():
+    dias = request.form.get('dias')
+    unidade = request.form.get('unidade')
+    email = request.form.get('email')
+    telefone = request.form.get('telefone')
+    endereco = request.form.get('endereco')
+
+    carros_reservados = session.get('carrinho', [])
+
+    reserva = {
+        'dias': dias,
+        'unidade': unidade,
+        'email': email,
+        'telefone': telefone,
+        'endereco': endereco,
+        'carros': carros_reservados
+    }
+
+    session['reserva'] = reserva
+    session['carrinho'] = []  # limpa carrinho
+
+    flash('Reserva finalizada com sucesso! ✅', 'success')
+    return redirect(url_for('carrinho'))
+
+# Remover carro do carrinho
 @app.route('/remover/<int:carro_id>')
 def remover(carro_id):
     if 'carrinho' in session:
@@ -191,12 +212,12 @@ def remover(carro_id):
     flash('Carro removido do carrinho.', 'info')
     return redirect(url_for('carrinho'))
 
-# limpar carrinho após finalizar reserva
+# Limpar carrinho
 @app.route('/remover_todos')
 def remover_todos():
     session['carrinho'] = []
-    return '', 204  # resposta vazia 
+    return '', 204
 
-# execuçao
+# Execução
 if __name__ == '__main__':
     app.run(debug=True)
