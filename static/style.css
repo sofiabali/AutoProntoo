@@ -604,16 +604,7 @@ input, textarea {
 .btn-remover:hover {
     background-color: #d32f2f;
 }
-.site-footer {
-    background-color: #14213d;
-    text-align: center;
-    padding: 20px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    font-family: 'Montserrat', sans-serif;
-}
-/* Garante que o body ocupe toda a altura da tela */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -621,17 +612,36 @@ html, body {
     flex-direction: column;
 }
 
-/* Conteúdo principal ocupa o restante da tela */
 .main-content {
     flex: 1;
 }
 
-/* Estilo do rodapé */
 .site-footer {
-    background-color: #14213d; /* azul do tema */
+    background-color: #14213d; 
     color: #ffffff;
     text-align: center;
-    padding: 100px 0;
     font-family: 'Montserrat', sans-serif;
+    padding: 20px 0;
 }
+
+.site-footer .footer-top {
+    border-top: 2px solid #09A88B; 
+    padding-top: 15px;
+}
+
+.site-footer .social-icons {
+    margin-top: 10px;
+}
+
+.site-footer .social-icons a {
+    color: #ffffff;
+    margin: 0 10px;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.site-footer .social-icons a:hover {
+    color: #09A88B; 
+}
+
 
