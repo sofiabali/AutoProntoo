@@ -643,5 +643,81 @@ html, body {
 .site-footer .social-icons a:hover {
     color: #09A88B; 
 }
+/* Seção Como Funciona */
+.como-funciona {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f4f6f7;
+}
+
+.como-funciona h2 {
+    color: #14213d;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.como-funciona .steps {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.como-funciona .step {
+    max-width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.como-funciona .step:hover {
+    transform: translateY(-5px);
+}
+
+.como-funciona .step i {
+    font-size: 36px;
+    color: #09A88B;
+    margin-bottom: 15px;
+}
+
+/* Seção Depoimentos */
+.depoimentos {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.depoimentos h2 {
+    color: #14213d;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.depoimentos-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.depoimento {
+    max-width: 250px;
+    background-color: #f4f6f7;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.depoimento p {
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.depoimento span {
+    font-weight: bold;
+    color: #14213d;
+}
 
 
