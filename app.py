@@ -50,7 +50,14 @@ criar_tabelas()
 @app.route('/')
 def index():
     usuario = session.get('usuario')
-    return render_template('index.html', usuario=usuario)
+
+    # Conecta ao banco para pegar até 4 carros para destaque
+    conn = conectar_bd()
+    carros = conn.execute("SELECT * FROM veiculos LIMIT 4").fetchall()
+    conn.close()
+
+    return render_template('index.html', usuario=usuario, carros=carros)
+
 
 @app.route('/carros')
 def carros():

@@ -719,5 +719,58 @@ html, body {
     font-weight: bold;
     color: #14213d;
 }
+.destaques {
+    padding: 60px 20px;
+    background-color: #f4f6f7;
+    text-align: center;
+}
+
+.destaques h2 {
+    color: #14213d;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.carros-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.car-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 250px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.car-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.btn-alugar {
+    display: inline-block;
+    background-color: #09A88B;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.btn-alugar:hover {
+    background-color: #07a07f;
+}
+
 
 
