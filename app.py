@@ -152,7 +152,6 @@ def reservar(carro_id):
     if 'carrinho' not in session:
         session['carrinho'] = []
 
-    # Verifica se já está no carrinho
     for item in session['carrinho']:
         if item['id'] == carro['id']:
             flash('Esse carro já está no seu carrinho.', 'info')
@@ -178,7 +177,7 @@ def carrinho():
     total = sum([item['valor_diaria'] for item in carrinho])
     return render_template('carrinho.html', carrinho=carrinho, total=total)
 
-# Finalizar reserva sem envio de email
+
 @app.route('/finalizar_reserva', methods=['POST'])
 def finalizar_reserva():
     dias = request.form.get('dias')
@@ -199,8 +198,7 @@ def finalizar_reserva():
     }
 
     session['reserva'] = reserva
-    session['carrinho'] = []  # limpa carrinho
-
+    session['carrinho'] = []  
     flash('Reserva finalizada com sucesso! ✅', 'success')
     return redirect(url_for('carrinho'))
 
