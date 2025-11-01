@@ -341,7 +341,7 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #ff6600;
+    background: #6d6d6d;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -963,7 +963,7 @@ html, body {
 
 
 .vantagens {
-    background-color: #383438; 
+    background-color: #13063b; 
     color: white;
     padding: 50px 10%;
     position: relative;
@@ -1050,6 +1050,42 @@ html, body {
 .prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.6);
 }
+.carrossel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding-bottom: 10px;
+
+   
+    -ms-overflow-style: none;  /* IE e Edge */
+    scrollbar-width: none;      /* Firefox */
+}
+
+.carrossel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Opera */
+}
+.dots-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: white;
+}
+
+
 
 
 

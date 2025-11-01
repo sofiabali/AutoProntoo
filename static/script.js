@@ -91,3 +91,22 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = '/carros';
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // ===== CARROSSEL DE VANTAGENS =====
+  const prev = document.querySelector('.prev');
+  const next = document.querySelector('.next');
+  const carrossel = document.querySelector('.carrossel');
+
+  if (prev && next && carrossel) {
+    const cardWidth = 420 + 20; 
+    prev.addEventListener('click', () => {
+      carrossel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    });
+
+    next.addEventListener('click', () => {
+      carrossel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    });
+  }
+});
+
