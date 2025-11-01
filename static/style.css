@@ -604,3 +604,34 @@ input, textarea {
 .btn-remover:hover {
     background-color: #d32f2f;
 }
+.site-footer {
+    background-color: #14213d;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+/* Garante que o body ocupe toda a altura da tela */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Conteúdo principal ocupa o restante da tela */
+.main-content {
+    flex: 1;
+}
+
+/* Estilo do rodapé */
+.site-footer {
+    background-color: #14213d; /* azul do tema */
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
