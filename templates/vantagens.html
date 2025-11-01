@@ -1,38 +1,30 @@
 <section class="vantagens">
-  <div class="vantagens-intro">
-    <h2>Vantagens do Aluguel AutoPronto</h2>
-    <p>A praticidade que te proporciona mais flexibilidade e economia.</p>
-    <a href="{{ url_for('carros') }}" class="btn-reservar">Quero Reservar</a>
-  </div>
-
-  <div class="vantagens-grid">
-    <div class="vantagem">
-      <i class="fa-solid fa-car"></i>
-      <div class="texto">
-        <h3>Conforto e segurança</h3>
-        <p>A AutoPronto possui carros mais novos e modernos.</p>
+  <h2>Vantagens de alugar um carro conosco</h2>
+  <div class="carrossel-container">
+    <button class="prev">&#10094;</button>
+    <div class="carrossel">
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/vantagem1.jpg') }}" alt="Carros novos">
+        <h3>Carros sempre atualizados</h3>
+        <p>Frota renovada constantemente para você ter os veículos mais modernos.</p>
       </div>
-    </div>
-    <div class="vantagem">
-      <i class="fa-solid fa-calendar-check"></i>
-      <div class="texto">
-        <h3>Flexível</h3>
-        <p>Pegue e devolva o carro a qualquer momento.</p>
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/vantagem2.jpg') }}" alt="Localização">
+        <h3>Unidades próximas de você</h3>
+        <p>Mais de 50 lojas pelo país para facilitar sua retirada e devolução.</p>
       </div>
-    </div>
-    <div class="vantagem">
-      <i class="fa-solid fa-users"></i>
-      <div class="texto">
-        <h3>Compartilhe</h3>
-        <p>Inclua um condutor adicional e utilize o carro com outra pessoa.</p>
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/vantagem3.jpg') }}" alt="Promoções">
+        <h3>Promoções exclusivas</h3>
+        <p>Descontos especiais para reservas online e clientes frequentes.</p>
       </div>
-    </div>
-    <div class="vantagem">
-      <i class="fa-solid fa-file-lines"></i>
-      <div class="texto">
-        <h3>Sem burocracia</h3>
-        <p>A AutoPronto cuida de tudo para você não se preocupar com nada.</p>
+      <div class="card">
+        <img src="{{ url_for('static', filename='img/vantagem4.jpg') }}" alt="Suporte">
+        <h3>Atendimento 24h</h3>
+        <p>Suporte sempre disponível para garantir sua tranquilidade na locação.</p>
       </div>
+      
     </div>
+    <button class="next">&#10095;</button>
   </div>
 </section>
