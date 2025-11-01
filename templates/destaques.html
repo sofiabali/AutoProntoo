@@ -5,7 +5,7 @@
     <div class="car-card">
       <img src="{{ url_for('static', filename='img/' ~ carro.imagem) }}" alt="{{ carro.nome }}">
       <h3>{{ carro.nome }}</h3>
-      <p>R$ {{ carro.preco }} / dia</p>
+      <p>R$ {{ carro.valor_diaria }} / dia</p>
       <a href="{{ url_for('carros') }}" class="btn-alugar">Alugar</a>
     </div>
     {% endfor %}
