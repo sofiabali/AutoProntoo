@@ -31,11 +31,11 @@
   <button type="submit">Filtrar</button>
 </form>
 
-<!-- Grid de carros -->
+
 <div class="carros-grid">
   {% for carro in carros %}
   <div class="car-card">
-    <!-- Badge aparece apenas se o filtro de tipo estiver ativo -->
+    
     {% if carro.tipo and request.args.get('tipo') %}
     <div class="badge {{ carro.tipo|lower }}">{{ carro.tipo }}</div>
     {% endif %}
