@@ -14,6 +14,7 @@
         <a href="{{ url_for('index') }}">Início</a>
         <a href="{{ url_for('carros') }}">Carros</a>
         {% if 'usuario' in session %}
+          <a href="{{ url_for('minha_conta') }}">Minha Conta</a>
           <a href="{{ url_for('logout') }}">Sair</a>
         {% else %}
           <a href="{{ url_for('login') }}">Login</a>

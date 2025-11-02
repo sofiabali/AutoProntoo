@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Minha Conta - AutoPronto{% endblock %}
+
+{% block content %}
+<section class="minha-conta-section">
+    <h2>Minha Conta</h2>
+    <p><strong>Nome:</strong> {{ usuario }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Telefone:</strong> {{ telefone }}</p>
+    <p><strong>CPF:</strong> {{ cpf }}</p>
+    <a href="{{ url_for('logout') }}" class="btn-reservar">Sair da conta</a>
+</section>
+
+<style>
+.minha-conta-section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--cinza);
+    color: var(--azul);
+}
+
+.minha-conta-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--azul);
+}
+
+.minha-conta-section p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: var(--preto);
+}
+
+.minha-conta-section .btn-reservar {
+    display: inline-block;
+    margin-top: 30px;
+    background-color: var(--verde);
+    color: var(--branco);
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.minha-conta-section .btn-reservar:hover {
+    background-color: #07a07f;
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}
+
+
+

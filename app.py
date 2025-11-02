@@ -216,6 +216,30 @@ def remover_todos():
     session['carrinho'] = []
     return '', 204
 
+# conta do usuario/minha conta
+@app.route('/minha_conta')
+def minha_conta():
+    if 'usuario' not in session:
+        flash('Faça login para acessar sua conta.', 'error')
+        return redirect(url_for('login'))
+
+    usuario = session['usuario']
+
+    conn = conectar_bd()
+    cliente = conn.execute('SELECT * FROM clientes WHERE nome = ?', (usuario,)).fetchone()
+    conn.close()
+
+    return render_template('minha_conta.html', 
+                           usuario=cliente['nome'], 
+                           email=cliente['email'], 
+                           telefone=cliente['telefone'], 
+                           cpf=cliente['cpf'])
+
+# ===== Execução =====
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
 # Execução
 if __name__ == '__main__':
     app.run(debug=True)
