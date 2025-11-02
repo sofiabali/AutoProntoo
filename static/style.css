@@ -732,7 +732,7 @@ input, textarea {
 }
 
 .modal-content {
-    background: #13063b;
+    background: #2e2b36c9;
     color: white;
     padding: 30px 25px;
     border-radius: 15px;
@@ -785,12 +785,12 @@ input, textarea {
 }
 
 .modal-buttons .btn-confirmar {
-    background: #ff6600;
+    background: #31a5a5;
     color: white;
 }
 
 .modal-buttons .btn-confirmar:hover {
-    background: #e65c00;
+    background: #a8998f;
 }
 
 
@@ -834,6 +834,7 @@ html, body {
     flex: 1;
 }
 
+/*rodape*/
 .site-footer {
     background-color: #14213d; 
     color: #ffffff;
