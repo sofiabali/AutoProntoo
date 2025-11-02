@@ -180,8 +180,16 @@ def reservar(carro_id):
         'modelo': carro['modelo'],
         'ano': carro['ano'],
         'valor_diaria': carro['valor_diaria'],
-        'imagem': imagem
+        'imagem': carro['imagem'] if carro['imagem'] else 'semfoto.png',
+        'categoria': carro['categoria'],
+        'tipo': carro['tipo'],
+        'novo_usado': carro['novo_usado'],
+        'descricao': carro['descricao'],
+        'km': carro['km'] if 'km' in carro.keys() else None,
+        'combustivel': carro['combustivel'] if 'combustivel' in carro.keys() else None,
+        'cambio': carro['cambio'] if 'cambio' in carro.keys() else None
     })
+
 
     flash(f'{carro["modelo"]} adicionado ao carrinho!', 'success')
     return redirect(url_for('carrinho'))
