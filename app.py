@@ -2,9 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'segredo123'  # chave da sessão
+app.secret_key = 'segredo123'
 
+# -----------------------------
 # Banco de dados
+# -----------------------------
 def conectar_bd():
     conn = sqlite3.connect('locadora.db')
     conn.row_factory = sqlite3.Row
@@ -14,7 +16,7 @@ def criar_tabelas():
     conn = conectar_bd()
     cursor = conn.cursor()
 
-    # tabela de veículos
+    # tabela veiculos
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS veiculos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,11 +24,14 @@ def criar_tabelas():
             marca TEXT NOT NULL,
             ano INTEGER,
             valor_diaria REAL,
-            imagem TEXT
+            imagem TEXT,
+            categoria TEXT,
+            tipo TEXT,
+            novo_usado TEXT
         )
     ''')
 
-    # tabela de clientes
+    # tabela clientes
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS clientes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,7 +43,7 @@ def criar_tabelas():
         )
     ''')
 
-    # garante que veículos antigos tenham imagem sem foto
+    # garante que veículos antigos tenham imagem
     cursor.execute("UPDATE veiculos SET imagem = 'semfoto.png' WHERE imagem IS NULL OR imagem = ''")
 
     conn.commit()
@@ -46,21 +51,22 @@ def criar_tabelas():
 
 criar_tabelas()
 
+# -----------------------------
 # Rotas principais
+# -----------------------------
 @app.route('/')
 def index():
     usuario = session.get('usuario')
-
     conn = conectar_bd()
     carros = conn.execute("SELECT * FROM veiculos LIMIT 4").fetchall()
     conn.close()
-
     return render_template('index.html', usuario=usuario, carros=carros)
 
 @app.route('/carros')
 def carros():
     categoria = request.args.get('categoria', '').strip()
     tipo = request.args.get('tipo', '').strip()
+    novo_usado = request.args.get('novo_usado', '').strip()
     preco = request.args.get('preco', '').strip()
     ano = request.args.get('ano', '').strip()
 
@@ -73,6 +79,9 @@ def carros():
     if tipo:
         query += " AND tipo = ?"
         params.append(tipo)
+    if novo_usado:
+        query += " AND novo_usado = ?"
+        params.append(novo_usado)
     if preco:
         query += " AND valor_diaria <= ?"
         params.append(float(preco))
@@ -86,7 +95,9 @@ def carros():
 
     return render_template('carros.html', carros=carros)
 
+# -----------------------------
 # Cadastro cliente
+# -----------------------------
 @app.route('/cadastro_cliente', methods=['GET', 'POST'])
 def cadastro_cliente():
     if request.method == 'POST':
@@ -110,7 +121,9 @@ def cadastro_cliente():
 
     return render_template('cadastro_cliente.html')
 
-# Login
+# -----------------------------
+# Login / Logout
+# -----------------------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -138,7 +151,9 @@ def logout():
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
 
+# -----------------------------
 # Carrinho
+# -----------------------------
 @app.route('/reservar/<int:carro_id>')
 def reservar(carro_id):
     conn = conectar_bd()
@@ -177,7 +192,6 @@ def carrinho():
     total = sum([item['valor_diaria'] for item in carrinho])
     return render_template('carrinho.html', carrinho=carrinho, total=total)
 
-
 @app.route('/finalizar_reserva', methods=['POST'])
 def finalizar_reserva():
     dias = request.form.get('dias')
@@ -198,11 +212,10 @@ def finalizar_reserva():
     }
 
     session['reserva'] = reserva
-    session['carrinho'] = []  
+    session['carrinho'] = []
     flash('Reserva finalizada com sucesso! ✅', 'success')
     return redirect(url_for('carrinho'))
 
-# Remover carro do carrinho
 @app.route('/remover/<int:carro_id>')
 def remover(carro_id):
     if 'carrinho' in session:
@@ -210,13 +223,11 @@ def remover(carro_id):
     flash('Carro removido do carrinho.', 'info')
     return redirect(url_for('carrinho'))
 
-# Limpar carrinho
 @app.route('/remover_todos')
 def remover_todos():
     session['carrinho'] = []
     return '', 204
 
-# conta do usuario/minha conta
 @app.route('/minha_conta')
 def minha_conta():
     if 'usuario' not in session:
@@ -224,7 +235,6 @@ def minha_conta():
         return redirect(url_for('login'))
 
     usuario = session['usuario']
-
     conn = conectar_bd()
     cliente = conn.execute('SELECT * FROM clientes WHERE nome = ?', (usuario,)).fetchone()
     conn.close()
@@ -235,11 +245,9 @@ def minha_conta():
                            telefone=cliente['telefone'], 
                            cpf=cliente['cpf'])
 
-# ===== Execução =====
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
+# -----------------------------
 # Execução
+# -----------------------------
 if __name__ == '__main__':
     app.run(debug=True)
+

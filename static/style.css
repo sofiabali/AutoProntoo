@@ -452,6 +452,7 @@ input, textarea {
 
 /* Formulário de filtros */
 /* Badges de tipo */
+/* ===== Badges ===== */
 .badge {
     display: inline-block;
     padding: 4px 10px;
@@ -460,17 +461,18 @@ input, textarea {
     font-weight: bold;
     color: white;
     margin-bottom: 0.5rem;
+    margin-right: 0.3rem;
 }
 
-.badge.seminovo {
-    background-color: #09A88B; /* verde */
-}
+/* Badge tipo */
+.badge.seminovo { background-color: #09A88B; } /* verde */
+.badge.promocao { background-color: #FF6600; } /* laranja */
 
-.badge.promocao {
-    background-color: #FF6600; /* laranja */
-}
+/* Badge novo/usado */
+.badge.novo { background-color: #1E90FF; }   /* azul */
+.badge.usado { background-color: #8B0000; }  /* vermelho escuro */
 
-/* Grid de carros */
+/* ===== Grid de carros ===== */
 .carros-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -478,7 +480,7 @@ input, textarea {
     justify-items: center;
 }
 
-/* Cards de carros */
+/* ===== Cards de carros ===== */
 .car-card {
     background: var(--branco);
     border-radius: 16px;
@@ -487,6 +489,7 @@ input, textarea {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
     width: 280px;
+    position: relative;
 }
 
 .car-card:hover {
@@ -494,6 +497,7 @@ input, textarea {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Imagem do carro */
 .car-card img {
     width: 100%;
     height: 150px;
@@ -501,17 +505,21 @@ input, textarea {
     margin-bottom: 1rem;
 }
 
+/* Título do carro */
 .car-card h3 {
     color: var(--azul);
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 0.5rem;
 }
 
+/* Informações do carro */
 .car-card p {
     color: #444;
     margin: 0.3rem 0;
+    font-size: 0.9rem;
 }
 
+/* Botão reservar */
 .car-card .btn-reservar {
     display: inline-block;
     width: 100%;

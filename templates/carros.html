@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Carros Disponíveis{% endblock %}
+
+{% block title %}Carros - AutoPronto{% endblock %}
 
 {% block content %}
 <h2 style="text-align: center;">Carros Disponíveis</h2>
@@ -22,6 +23,13 @@
     <option value="Promocao" {% if request.args.get('tipo') == 'Promocao' %}selected{% endif %}>Promoção</option>
   </select>
 
+  <label>Condição:</label>
+  <select name="novo_usado">
+    <option value="">Todos</option>
+    <option value="Novo" {% if request.args.get('novo_usado') == 'Novo' %}selected{% endif %}>Novo</option>
+    <option value="Usado" {% if request.args.get('novo_usado') == 'Usado' %}selected{% endif %}>Usado</option>
+  </select>
+
   <label>Preço até:</label>
   <input type="number" name="preco" placeholder="R$" value="{{ request.args.get('preco', '') }}">
 
@@ -31,21 +39,46 @@
   <button type="submit">Filtrar</button>
 </form>
 
-
 <div class="carros-grid">
   {% for carro in carros %}
   <div class="car-card">
-    
-    {% if carro.tipo and request.args.get('tipo') %}
+
+    {% if carro.tipo %}
     <div class="badge {{ carro.tipo|lower }}">{{ carro.tipo }}</div>
+    {% endif %}
+
+    {% if carro.novo_usado %}
+    <div class="badge {{ carro.novo_usado|lower }}">{{ carro.novo_usado }}</div>
     {% endif %}
 
     <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
     <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
     <p>Ano: {{ carro.ano }}</p>
     <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
+
+
+    {% if carro.km %}
+    <p>KM: {{ carro.km }}</p>
+    {% endif %}
+    {% if carro.combustivel %}
+    <p>Combustível: {{ carro.combustivel }}</p>
+    {% endif %}
+    {% if carro.cambio %}
+    <p>Câmbio: {{ carro.cambio }}</p>
+    {% endif %}
+    {% if carro.descricao %}
+    <p>{{ carro.descricao }}</p>
+    {% endif %}
+
+
     <a class="btn-reservar" href="{{ url_for('reservar', carro_id=carro.id) }}">Reservar</a>
   </div>
   {% endfor %}
 </div>
+
+
+
 {% endblock %}
+
+
+
