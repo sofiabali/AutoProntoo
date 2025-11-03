@@ -19,22 +19,9 @@
   <label>Tipo:</label>
   <select name="tipo">
     <option value="">Todos</option>
-    <option value="Seminovo" {% if request.args.get('tipo') == 'Seminovo' %}selected{% endif %}>Seminovo</option>
-    <option value="Promocao" {% if request.args.get('tipo') == 'Promocao' %}selected{% endif %}>Promoção</option>
+    <option value="Automático" {% if request.args.get('tipo') == 'Automático' %}selected{% endif %}>Automático</option>
+    <option value="Manual" {% if request.args.get('tipo') == 'Manual' %}selected{% endif %}>Manual</option>
   </select>
-
-  <label>Condição:</label>
-  <select name="novo_usado">
-    <option value="">Todos</option>
-    <option value="Novo" {% if request.args.get('novo_usado') == 'Novo' %}selected{% endif %}>Novo</option>
-    <option value="Usado" {% if request.args.get('novo_usado') == 'Usado' %}selected{% endif %}>Usado</option>
-  </select>
-
-  <label>Preço até:</label>
-  <input type="number" name="preco" placeholder="R$" value="{{ request.args.get('preco', '') }}">
-
-  <label>Ano mínimo:</label>
-  <input type="number" name="ano" placeholder="Ex: 2018" value="{{ request.args.get('ano', '') }}">
 
   <button type="submit">Filtrar</button>
 </form>
@@ -47,15 +34,10 @@
     <div class="badge {{ carro.tipo|lower }}">{{ carro.tipo }}</div>
     {% endif %}
 
-    {% if carro.novo_usado %}
-    <div class="badge {{ carro.novo_usado|lower }}">{{ carro.novo_usado }}</div>
-    {% endif %}
-
     <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
     <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
-    <p>Ano: {{ carro.ano }}</p>
+    <p>Categoria: {{ carro.categoria }}</p>
     <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
-
 
     {% if carro.km %}
     <p>KM: {{ carro.km }}</p>
@@ -63,22 +45,16 @@
     {% if carro.combustivel %}
     <p>Combustível: {{ carro.combustivel }}</p>
     {% endif %}
-    {% if carro.cambio %}
-    <p>Câmbio: {{ carro.cambio }}</p>
-    {% endif %}
     {% if carro.descricao %}
     <p>{{ carro.descricao }}</p>
     {% endif %}
-
 
     <a class="btn-reservar" href="{{ url_for('reservar', carro_id=carro.id) }}">Reservar</a>
   </div>
   {% endfor %}
 </div>
-
-
-
 {% endblock %}
+
 
 
 

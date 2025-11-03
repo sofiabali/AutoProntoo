@@ -11,68 +11,58 @@
         <div class="car-card">
           <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
           <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
-          <p>Ano: {{ carro.ano }}</p>
-          <p>Categoria: {{ carro.categoria }}</p>
-          <p>Tipo: {{ carro.tipo }}</p>
-          <p>Condição: {{ carro.novo_usado }}</p>
-          {% if carro.descricao %}
-          <p>{{ carro.descricao }}</p>
-          {% endif %}
-          {% if carro.km %}
-          <p>KM: {{ carro.km }}</p>
-          {% endif %}
-          {% if carro.combustivel %}
-          <p>Combustível: {{ carro.combustivel }}</p>
-          {% endif %}
+          <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
           {% if carro.cambio %}
           <p>Câmbio: {{ carro.cambio }}</p>
           {% endif %}
-
-          <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
+          {% if carro.descricao %}
+          <p>{{ carro.descricao }}</p>
+          {% endif %}
           <a class="btn-remover" href="{{ url_for('remover', carro_id=carro.id) }}">Remover</a>
         </div>
       {% endfor %}
     </div>
 
-    <!-- Total e botão de finalização -->
-    <h3 class="carrinho-total">Total: R$ {{ "%.2f"|format(total) }}</h3>
-    <button class="btn-finalizar">Finalizar Reserva</button>
+    <h3 class="carrinho-total">Total: R$ <span id="valorTotal">{{ "%.2f"|format(total) }}</span></h3>
+    <button class="btn-finalizar" id="abrirCheckout">Finalizar Reserva</button>
 
-   <!-- Modal de Checkout -->
-<div id="checkoutModal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <h3>Finalize sua Reserva</h3>
-    <form id="checkoutForm">
-      
-      <label for="dias">Quantidade de dias:</label>
-      <input type="number" id="dias" name="dias" min="1" required>
+    <!-- Modal de Checkout -->
+    <div id="checkoutModal" class="modal" style="display:none;"
+         data-diaria="{{ total_diarias if total_diarias is defined else 0 }}">
+      <div class="modal-content">
+        <h3>Finalize sua Reserva</h3>
+        <form id="checkoutForm">
 
-      <label for="unidade">Local de retirada:</label>
-      <select id="unidade" name="unidade" required>
-        <option value="">Selecione uma unidade</option>
-        <option value="AutoPronto - SP">AutoPronto - SP</option>
-        <option value="AutoPronto - RJ">AutoPronto - RJ</option>
-        <option value="AutoPronto - MG">AutoPronto - MG</option>
-        <!-- Adicione outras unidades aqui -->
-      </select>
+          <label for="entrada">Data de retirada:</label>
+          <input type="date" id="entrada" name="entrada" required>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+          <label for="saida">Data de saída:</label>
+          <input type="date" id="saida" name="saida" required>
 
-      <label for="telefone">Telefone:</label>
-      <input type="tel" id="telefone" name="telefone" required>
+          <label for="unidade">Local de retirada:</label>
+          <select id="unidade" name="unidade" required>
+            <option value="">Selecione uma unidade</option>
+            <option value="AutoPronto - SP">AutoPronto - SP</option>
+            <option value="AutoPronto - RJ">AutoPronto - RJ</option>
+            <option value="AutoPronto - MG">AutoPronto - MG</option>
+          </select>
 
-      <label for="endereco">Endereço:</label>
-      <input type="text" id="endereco" name="endereco" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
 
-      <div class="modal-buttons">
-        <button type="submit" class="btn-confirmar">Confirmar Reserva</button>
-        <button type="button" id="cancelBtn">Cancelar</button>
+          <label for="telefone">Telefone:</label>
+          <input type="tel" id="telefone" name="telefone" required>
+
+          <label for="endereco">Endereço:</label>
+          <input type="text" id="endereco" name="endereco" required>
+
+          <div class="modal-buttons">
+            <button type="submit" class="btn-confirmar">Confirmar Reserva</button>
+            <button type="button" id="cancelBtn">Cancelar</button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
-
+    </div>
 
   {% else %}
     <p>Seu carrinho está vazio 😢</p>

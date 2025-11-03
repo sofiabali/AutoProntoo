@@ -420,12 +420,8 @@ input, textarea {
 }
 
 /* Badge tipo */
-.badge.seminovo { background-color: #09A88B; } 
-.badge.promocao { background-color: #FF6600; } 
-
-/* Badge novo/usado */
-.badge.novo { background-color: #1E90FF; }   
-.badge.usado { background-color: #8B0000; }  
+.badge.automático { background-color: #437eb4; } 
+.badge.manual { background-color: #FF6600; }  
 
 
 /* ======= FORMULÁRIOS LOGIN / CADASTRO ======= */

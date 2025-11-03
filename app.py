@@ -4,9 +4,7 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = 'segredo123'
 
-# -----------------------------
-# Banco de dados
-# -----------------------------
+# banco de dados
 def conectar_bd():
     conn = sqlite3.connect('locadora.db')
     conn.row_factory = sqlite3.Row
@@ -64,33 +62,23 @@ def index():
 
 @app.route('/carros')
 def carros():
-    categoria = request.args.get('categoria', '').strip()
-    tipo = request.args.get('tipo', '').strip()
-    novo_usado = request.args.get('novo_usado', '').strip()
-    preco = request.args.get('preco', '').strip()
-    ano = request.args.get('ano', '').strip()
+    categoria = request.args.get('categoria')
+    tipo = request.args.get('tipo')
 
     query = "SELECT * FROM veiculos WHERE 1=1"
     params = []
 
     if categoria:
-        query += " AND categoria = ?"
+        query += " AND categoria=?"
         params.append(categoria)
     if tipo:
-        query += " AND tipo = ?"
+        query += " AND tipo=?"
         params.append(tipo)
-    if novo_usado:
-        query += " AND novo_usado = ?"
-        params.append(novo_usado)
-    if preco:
-        query += " AND valor_diaria <= ?"
-        params.append(float(preco))
-    if ano:
-        query += " AND ano >= ?"
-        params.append(int(ano))
 
     conn = conectar_bd()
-    carros = conn.execute(query, params).fetchall()
+    cursor = conn.cursor()
+    cursor.execute(query, params)
+    carros = cursor.fetchall()
     conn.close()
 
     return render_template('carros.html', carros=carros)
@@ -207,11 +195,15 @@ def finalizar_reserva():
     email = request.form.get('email')
     telefone = request.form.get('telefone')
     endereco = request.form.get('endereco')
+    data_retirada = request.form.get('data_retirada')
+    data_devolucao = request.form.get('data_devolucao')
 
     carros_reservados = session.get('carrinho', [])
 
     reserva = {
         'dias': dias,
+        'data_retirada': data_retirada,
+        'data_devolucao': data_devolucao,
         'unidade': unidade,
         'email': email,
         'telefone': telefone,
@@ -223,6 +215,7 @@ def finalizar_reserva():
     session['carrinho'] = []
     flash('Reserva finalizada com sucesso! ✅', 'success')
     return redirect(url_for('carrinho'))
+
 
 @app.route('/remover/<int:carro_id>')
 def remover(carro_id):
