@@ -1,4 +1,4 @@
-/* ======= FONTES E VARIÁVEIS ======= */
+/* fontes e variaveis */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto:wght@400;500&display=swap');
 
 :root {
@@ -23,7 +23,7 @@ body {
     scroll-behavior: smooth;
 }
 
-/* ======= CABEÇALHO ======= */
+/* cabeçalho */
 header {
     background: linear-gradient(135deg, var(--azul), #0b1e3f);
     color: var(--branco);
@@ -71,7 +71,7 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* ======= SEÇÃO HERO (BANNER PRINCIPAL) ======= */
+/* BANNER PRINCIPAL/hero banner */
 .hero {
     display: flex;
     justify-content: space-between;
@@ -177,7 +177,7 @@ nav a:hover::after {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* ======= RODAPÉ ======= */
+/* RODAPÉ  */
 footer {
     text-align: center;
     padding: 1.2rem;
@@ -186,7 +186,7 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ======= ANIMAÇÕES ======= */
+/* ANIMAÇÕES  */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -271,7 +271,7 @@ footer {
 }
 
 .lista-carros p {
-    color: #555;
+    color: #1a1919;
     margin-bottom: 2rem;
 }
 
@@ -331,17 +331,14 @@ footer {
     transform: translateY(0);
 }
 
-/* Cards de veículos */
-.carro-card {
-    transition: all 0.3s ease;
-}
+
 
 /* Botão voltar ao topo */
 #backToTop {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #6d6d6d;
+    background: #36f8f8;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -373,167 +370,6 @@ input, textarea {
     border: 1px solid #ccc;
     padding: 8px;
     border-radius: 5px;
-}
-/* Badges de tipo */
-.badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.badge.seminovo {
-    background-color: #09A88B; /* verde */
-}
-
-.badge.promocao {
-    background-color: #FF6600; /* laranja */
-}
-
-/* Cards de carros */
-.carros-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    justify-items: center;
-}
-
-.car-card {
-    background: var(--branco);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-    width: 280px;
-}
-
-.car-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.car-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-    margin-bottom: 1rem;
-}
-
-.car-card h3 {
-    color: var(--azul);
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 0.5rem;
-}
-
-.car-card p {
-    color: #444;
-    margin: 0.3rem 0;
-}
-
-.car-card .btn-reservar {
-    display: inline-block;
-    width: 100%;
-    text-decoration: none;
-    background-color: var(--verde);
-    color: white;
-    padding: 10px 0;
-    border-radius: 8px;
-    margin-top: 1rem;
-    transition: background 0.3s;
-}
-
-.car-card .btn-reservar:hover {
-    background-color: #078a76;
-}
-
-/* Formulário de filtros */
-/* Badges de tipo */
-/* ===== Badges ===== */
-.badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 0.5rem;
-    margin-right: 0.3rem;
-}
-
-/* Badge tipo */
-.badge.seminovo { background-color: #09A88B; } /* verde */
-.badge.promocao { background-color: #FF6600; } /* laranja */
-
-/* Badge novo/usado */
-.badge.novo { background-color: #1E90FF; }   /* azul */
-.badge.usado { background-color: #8B0000; }  /* vermelho escuro */
-
-/* ===== Grid de carros ===== */
-.carros-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    justify-items: center;
-}
-
-/* ===== Cards de carros ===== */
-.car-card {
-    background: var(--branco);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-    width: 280px;
-    position: relative;
-}
-
-.car-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Imagem do carro */
-.car-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-    margin-bottom: 1rem;
-}
-
-/* Título do carro */
-.car-card h3 {
-    color: var(--azul);
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 0.5rem;
-}
-
-/* Informações do carro */
-.car-card p {
-    color: #444;
-    margin: 0.3rem 0;
-    font-size: 0.9rem;
-}
-
-/* Botão reservar */
-.car-card .btn-reservar {
-    display: inline-block;
-    width: 100%;
-    text-decoration: none;
-    background-color: var(--verde);
-    color: white;
-    padding: 10px 0;
-    border-radius: 8px;
-    margin-top: 1rem;
-    transition: background 0.3s;
-}
-
-.car-card .btn-reservar:hover {
-    background-color: #078a76;
 }
 
 /* Formulário de filtros */
@@ -570,6 +406,27 @@ input, textarea {
 .filtros-carros button:hover {
     background-color: #078a76;
 }
+
+/* ===== Badges ===== */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+    margin-right: 0.3rem;
+}
+
+/* Badge tipo */
+.badge.seminovo { background-color: #09A88B; } 
+.badge.promocao { background-color: #FF6600; } 
+
+/* Badge novo/usado */
+.badge.novo { background-color: #1E90FF; }   
+.badge.usado { background-color: #8B0000; }  
+
 
 /* ======= FORMULÁRIOS LOGIN / CADASTRO ======= */
 .cadastro-container {
@@ -654,10 +511,11 @@ input, textarea {
 .form-card p a:hover {
     color: #066a5b;
 }
+
 /* botão de reservar */
 .btn-reservar {
   display: inline-block;
-  background-color:  #14213d;
+  background-color:  #36a3b6;
   color: white;
   padding: 8px 14px;
   border-radius: 10px;
@@ -668,7 +526,7 @@ input, textarea {
 }
 
 .btn-reservar:hover {
-  background-color:  #14213d;
+  background-color:  #8aaeb3;
 }
 
 /* ícone do carrinho */
@@ -682,29 +540,7 @@ input, textarea {
 .carrinho-link:hover {
   color: #ffcc80;
 }
-/* ======= ESTILOS EXCLUSIVOS DO CARRINHO ======= */
-.carrinho-container {
-    text-align: center;
-    padding: 3rem 6%;
-}
 
-.carrinho-container h2 {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--azul);
-    margin-bottom: 1rem;
-}
-
-.carrinho-container h3 {
-    margin-top: 2rem;
-    color: var(--azul);
-}
-
-.carrinho-total {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: var(--azul);
-    margin-top: 1rem;
-}
 
 /* botão de finalizar reserva */
 .btn-finalizar {
@@ -874,11 +710,11 @@ html, body {
 .como-funciona {
     padding: 60px 20px;
     text-align: center;
-    background-color: #f4f6f7;
+    background-color: var(--cinza-claro);
 }
 
 .como-funciona h2 {
-    color: #14213d;
+    color: var(--azul);
     font-size: 32px;
     margin-bottom: 40px;
 }
@@ -891,22 +727,29 @@ html, body {
 }
 
 .como-funciona .step {
-    max-width: 250px;
-    background-color: #ffffff;
+    max-width: 220px;
+    background: #ffffff;
+    border-left: 4px solid var(--verde);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
 }
 
 .como-funciona .step:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 .como-funciona .step i {
     font-size: 36px;
-    color: #09A88B;
+    color: var(--verde);
     margin-bottom: 15px;
+    transition: color 0.3s;
+}
+
+.como-funciona .step:hover i {
+    color: #078a76;
 }
 
 /* Seção Depoimentos */
@@ -946,6 +789,8 @@ html, body {
     font-weight: bold;
     color: #14213d;
 }
+
+/*seção destques*/
 .destaques {
     padding: 60px 20px;
     background-color: #f4f6f7;
@@ -954,7 +799,7 @@ html, body {
 
 .destaques h2 {
     color: #14213d;
-    font-size: 32px;
+    font-size: 40px;
     margin-bottom: 40px;
 }
 
@@ -975,7 +820,7 @@ html, body {
 }
 
 .car-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-9px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
@@ -985,21 +830,7 @@ html, body {
     margin-bottom: 15px;
 }
 
-.btn-alugar {
-    display: inline-block;
-    background-color: #09A88B;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-
-.btn-alugar:hover {
-    background-color: #07a07f;
-}
-
-
+/*seção vantagens*/
 .vantagens {
     background-color: #13063b; 
     color: white;
@@ -1096,12 +927,12 @@ html, body {
     padding-bottom: 10px;
 
    
-    -ms-overflow-style: none;  /* IE e Edge */
-    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;  
+    scrollbar-width: none;      
 }
 
 .carrossel::-webkit-scrollbar {
-    display: none; /* Chrome, Safari e Opera */
+    display: none; 
 }
 .dots-container {
     text-align: center;
