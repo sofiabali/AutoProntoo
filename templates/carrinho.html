@@ -12,9 +12,6 @@
           <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
           <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
           <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
-          {% if carro.cambio %}
-          <p>Câmbio: {{ carro.cambio }}</p>
-          {% endif %}
           {% if carro.descricao %}
           <p>{{ carro.descricao }}</p>
           {% endif %}

@@ -338,14 +338,14 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #36f8f8;
+    background: #23b49c;
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 50%;
     cursor: pointer;
     display: none;
-    font-size: 18px;
+    font-size: 38px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     transition: transform 0.2s;
 }
@@ -424,7 +424,7 @@ input, textarea {
 .badge.manual { background-color: #FF6600; }  
 
 
-/* ======= FORMULÁRIOS LOGIN / CADASTRO ======= */
+/* FORMULÁRIOS LOGIN / CADASTRO */
 .cadastro-container {
     display: flex;
     justify-content: center;
@@ -634,7 +634,7 @@ input, textarea {
 }
 
 
-/* ======= AJUSTE DOS CARDS NO CARRINHO ======= */
+/*AJUSTE DOS CARDS NO CARRINHO */
 .carros-grid {
     justify-content: center;
     align-items: flex-start;
