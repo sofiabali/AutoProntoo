@@ -62,7 +62,7 @@ document.querySelectorAll('input, textarea').forEach(input => {
 });
 
 
-// NAVEGAÇÃO SUAVE (SMOOTH SCROLL)
+// NAVEGAÇÃO SUAVE 
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -72,7 +72,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ====== MODAL DE FINALIZAÇÃO ======
+//  MODAL DE FINALIZAÇÃO 
 document.addEventListener('DOMContentLoaded', () => {
   const finalizarBtn = document.querySelector('.btn-finalizar');
   const modal = document.getElementById('checkoutModal');
@@ -112,9 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
+  // CARROSSEL DE VANTAGENS 
 document.addEventListener('DOMContentLoaded', () => {
-  // ===== CARROSSEL DE VANTAGENS =====
   const prev = document.querySelector('.prev');
   const next = document.querySelector('.next');
   const carrossel = document.querySelector('.carrossel');

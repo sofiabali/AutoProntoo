@@ -436,19 +436,15 @@ input, textarea {
 
 .form-card {
     background-color: var(--branco);
-    border-radius: 16px;
+    border-radius: 10px;
     padding: 3rem 2.5rem;
     width: 100%;
-    max-width: 420px;
+    max-width: 700px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     animation: fadeIn 0.8s ease-in-out;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-}
 
 .form-card h2 {
     text-align: center;
@@ -508,6 +504,29 @@ input, textarea {
     color: #066a5b;
 }
 
+
+.form-section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 1.7rem 0 0.7rem 0;
+    color: var(--azul);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-card form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+
+.form-card form .form-grid .full {
+    grid-column: 1 / -1;
+}
+
+
+
 /* botão de reservar */
 .btn-reservar {
   display: inline-block;
@@ -534,7 +553,7 @@ input, textarea {
 }
 
 .carrinho-link:hover {
-  color: #ffcc80;
+  color: #80ffee;
 }
 
 

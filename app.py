@@ -49,9 +49,9 @@ def criar_tabelas():
 
 criar_tabelas()
 
-# -----------------------------
+
 # Rotas principais
-# -----------------------------
+
 @app.route('/')
 def index():
     usuario = session.get('usuario')
@@ -83,9 +83,9 @@ def carros():
 
     return render_template('carros.html', carros=carros)
 
-# -----------------------------
+
 # Cadastro cliente
-# -----------------------------
+
 @app.route('/cadastro_cliente', methods=['GET', 'POST'])
 def cadastro_cliente():
     if request.method == 'POST':
@@ -109,9 +109,8 @@ def cadastro_cliente():
 
     return render_template('cadastro_cliente.html')
 
-# -----------------------------
 # Login / Logout
-# -----------------------------
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -139,9 +138,8 @@ def logout():
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
 
-# -----------------------------
 # Carrinho
-# -----------------------------
+
 @app.route('/reservar/<int:carro_id>')
 def reservar(carro_id):
     conn = conectar_bd()
@@ -246,9 +244,9 @@ def minha_conta():
                            telefone=cliente['telefone'], 
                            cpf=cliente['cpf'])
 
-# -----------------------------
+
 # Execução
-# -----------------------------
+
 if __name__ == '__main__':
     app.run(debug=True)
 

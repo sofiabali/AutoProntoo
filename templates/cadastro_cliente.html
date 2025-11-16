@@ -4,26 +4,53 @@
 {% block content %}
 <div class="cadastro-container">
     <div class="form-card">
-        <h2>Cadastro de Cliente</h2>
-        <form method="POST">
-            <div class="input-group">
-                <input type="text" name="nome" placeholder="Nome completo" required>
-            </div>
-            <div class="input-group">
-                <input type="email" name="email" placeholder="E-mail" required>
-            </div>
-            <div class="input-group">
-                <input type="text" name="telefone" placeholder="Telefone">
-            </div>
-            <div class="input-group">
-                <input type="text" name="cpf" placeholder="CPF">
-            </div>
-            <div class="input-group">
-                <input type="password" name="senha" placeholder="Senha" required>
-            </div>
-            <button type="submit" class="btn-primary">Cadastrar</button>
-        </form>
+        <h2>Cadastro</h2>
+<form method="POST">
+
+    <h3 class="form-section-title">Informações Pessoais</h3>
+    <div class="form-grid">
+        <div class="input-group">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+        </div>
+        <div class="input-group">
+            <input type="text" name="cpf" placeholder="CPF">
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Contato</h3>
+    <div class="form-grid">
+        <div class="input-group">
+            <input type="email" name="email" placeholder="E-mail" required>
+        </div>
+        <div class="input-group">
+            <input type="text" name="telefone" placeholder="Telefone">
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Endereço</h3>
+    <div class="form-grid">
+        <div class="input-group full">
+            <input type="text" name="endereco" placeholder="Endereço completo (Rua, Nº, Bairro, Cidade, Estado)">
+        </div>
+        <div class="input-group full">
+            <input type="text" name="complemento" placeholder="Complemento (opcional)">
+        </div>
+    </div>
+
+    <h3 class="form-section-title">Dados de Acesso</h3>
+    <div class="form-grid">
+        <div class="input-group full">
+            <input type="password" name="senha" placeholder="Senha" required>
+        </div>
+    </div>
+
+    <button type="submit" class="btn-primary">Cadastrar</button>
+</form>
+
+
+
         <p>Já tem conta? <a href="{{ url_for('login') }}">Entrar</a></p>
     </div>
 </div>
+
 {% endblock %}
