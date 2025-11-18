@@ -13,13 +13,23 @@
       <nav>
         <a href="{{ url_for('index') }}">Início</a>
         <a href="{{ url_for('carros') }}">Carros</a>
-        {% if 'usuario' in session %}
-          <a href="{{ url_for('minha_conta') }}">Minha Conta</a>
-          <a href="{{ url_for('logout') }}">Sair</a>
-        {% else %}
-          <a href="{{ url_for('login') }}">Login</a>
-          <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
-        {% endif %}
+        <div class="dropdown">
+            <input type="checkbox" id="toggleConta">
+            <label for="toggleConta" class="nav-link minha-conta-btn">Minha Conta</label>
+
+            <div class="dropdown-menu">
+                {% if 'usuario' in session %}
+                    <a href="{{ url_for('minha_conta') }}">Perfil</a>
+                    <a href="{{ url_for('logout') }}">Sair</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
+                {% endif %}
+            </div>
+        </div>
+
+
+
         <a href="{{ url_for('carrinho') }}" class="carrinho-link">
           <i class="fa-solid fa-cart-shopping"></i>
         </a>
