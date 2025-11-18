@@ -1,5 +1,5 @@
 
-// FADE-IN DAS SEÇÕES
+// fade-in sessoes
 
 const fadeElements = document.querySelectorAll('.fade-in');
 
@@ -14,7 +14,7 @@ const observer = new IntersectionObserver(entries => {
 fadeElements.forEach(el => observer.observe(el));
 
 
-// INTERAÇÃO NOS CARDS DE VEÍCULOS
+// cards
 document.querySelectorAll('.carro-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
         card.style.transform = 'scale(1.05)';
@@ -27,7 +27,7 @@ document.querySelectorAll('.carro-card').forEach(card => {
 });
 
 
-// BOTÃO VOLTAR AO TOPO
+// setinha
 const backToTop = document.createElement('button');
 backToTop.textContent = '↑';
 backToTop.id = 'backToTop';
@@ -40,7 +40,7 @@ window.addEventListener('scroll', () => {
 });
 
 
-// FLASH MESSAGES AUTOMÁTICAS
+// mensagens automaticas
 document.querySelectorAll('.flash').forEach(msg => {
     setTimeout(() => {
         msg.style.opacity = '0';
@@ -49,7 +49,7 @@ document.querySelectorAll('.flash').forEach(msg => {
 });
 
 
-// EFEITO NOS INPUTS DE FORMULÁRIO
+// efeito nos inputs dos forms
 document.querySelectorAll('input, textarea').forEach(input => {
     input.addEventListener('focus', () => {
         input.style.borderColor = '#ff6600';
@@ -62,7 +62,7 @@ document.querySelectorAll('input, textarea').forEach(input => {
 });
 
 
-// NAVEGAÇÃO SUAVE 
+// navegaçao
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -72,7 +72,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-//  MODAL DE FINALIZAÇÃO 
+// modal de finalizaçao
 document.addEventListener('DOMContentLoaded', () => {
   const finalizarBtn = document.querySelector('.btn-finalizar');
   const modal = document.getElementById('checkoutModal');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-  // CARROSSEL DE VANTAGENS 
+  // vantagens
 document.addEventListener('DOMContentLoaded', () => {
   const prev = document.querySelector('.prev');
   const next = document.querySelector('.next');
@@ -129,4 +129,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// soma das diarias
+document.addEventListener("DOMContentLoaded", () => {
+    const retirada = document.getElementById("retirada");
+    const devolucao = document.getElementById("devoluçao");
+    const precoFinal = document.getElementById("precoFinal");
+
+    const precoBase = parseFloat(precoFinal.innerText); 
+
+    function calcularDias() {
+        if (!retirada.value || !devolucao.value) return;
+
+        const data1 = new Date(retirada.value);
+        const data2 = new Date(devolucao.value);
+
+        if (data2 < data1) {
+            precoFinal.innerText = "0.00";
+            return;
+        }
+
+        let diff = data2 - data1;
+
+        let dias = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;  
+
+        let total = precoBase * dias;
+
+        precoFinal.innerText = total.toFixed(2);
+    }
+
+    retirada.addEventListener("change", calcularDias);
+    devolucao.addEventListener("change", calcularDias);
+});
+
 

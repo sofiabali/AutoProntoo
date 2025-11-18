@@ -1039,6 +1039,18 @@ html, body {
     background: #503534;
 }
 
+#precoFinal {
+    color: inherit; /* garante que o span herde a cor do p */
+}
+
+/* Seleciona o <p> que contém o elemento #precoFinal */
+p:has(#precoFinal) {
+    color: #947878;      /* Muda a cor da frase inteira */
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
 
 
 

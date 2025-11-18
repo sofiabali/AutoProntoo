@@ -33,8 +33,11 @@
           <label for="retirada">Data de retirada:</label>
           <input type="date" id="retirada" name="retirada" required>
 
-          <label for="devoluçao">Data de devolução:</label>
+          <label for="devoluçao">Data de devoluçao:</label>
           <input type="date" id="devoluçao" name="devoluçao" required>
+
+          <p><strong>Total:</strong> R$<span id="precoFinal">{{ total }}</span></p>
+
 
           <label for="unidade">Local de retirada:</label>
           <select id="unidade" name="unidade" required>
