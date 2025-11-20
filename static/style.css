@@ -1064,10 +1064,97 @@ html, body {
 #toggleConta:checked ~ .dropdown-menu {
     display: flex;
 }
+/* ADMIN HOME */
+.admin-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
 
+.admin-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 300px;
+}
 
+.admin-btn {
+    padding: 12px;
+    text-align: center;
+    background: #14213d;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
 
+.admin-btn:hover {
+    background: #0d162c;
+    transform: translateY(-2px);
+}
+/* ===== ADMIN GLOBAL ===== */
+.admin-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
 
+/* Títulos do Admin */
+.admin-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
 
+/* Botões */
+.admin-btn,
+.btn-add,
+.btn-edit,
+.btn-delete {
+    padding: 10px 14px;
+    background: #14213d;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .2s ease;
+}
 
+.admin-btn:hover,
+.btn-add:hover,
+.btn-edit:hover,
+.btn-delete:hover {
+    background: #0d162c;
+    transform: translateY(-2px);
+}
 
+/* Botão vermelho */
+.btn-delete {
+    background: #c1121f;
+}
+.btn-delete:hover {
+    background: #8b0d18;
+}
+
+/* Tabela admin */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eeeeee;
+    text-align: left;
+}
+
+.admin-table th {
+    background: #14213d;
+    color: white;
+}

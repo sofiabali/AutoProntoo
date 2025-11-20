@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Painel do Admin</title>
-</head>
-<body>
-    <h1>Bem-vindo, {{ usuario }}!</h1>
-    <p><a href="{{ url_for('admin_veiculos') }}">Gerenciar Veículos</a></p>
-    <p><a href="{{ url_for('admin_clientes') }}">Ver Clientes</a></p>
-    <p><a href="{{ url_for('logout') }}">Sair</a></p>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Painel do Admin{% endblock %}
+
+{% block content %}
+
+<div class="admin-wrapper">
+
+    <h1 class="admin-title">Bem-vindo, {{ usuario }}!</h1>
+
+    <div class="admin-links">
+        <a class="admin-btn" href="{{ url_for('admin_veiculos') }}">Gerenciar Veículos</a>
+        <a class="admin-btn" href="{{ url_for('admin_clientes') }}">Ver Clientes</a>
+        <a class="admin-btn" href="{{ url_for('logout') }}">Sair</a>
+    </div>
+
+</div>
+
+{% endblock %}

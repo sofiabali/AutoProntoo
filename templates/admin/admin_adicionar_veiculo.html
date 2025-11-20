@@ -1,41 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>{% if carro %}Editar{% else %}Adicionar{% endif %} Veículo</title>
-</head>
-<body>
-    <h1>{% if carro %}Editar{% else %}Adicionar{% endif %} Veículo</h1>
-    <p><a href="{{ url_for('admin_veiculos') }}">Voltar à lista de veículos</a></p>
+{% extends "base.html" %}
 
-    <form method="POST" enctype="multipart/form-data">
-        <label>Marca:</label>
-        <input type="text" name="marca" value="{{ carro['marca'] if carro else '' }}" required><br>
+{% block title %}{{ "Editar" if carro else "Adicionar" }} Veículo{% endblock %}
 
-        <label>Modelo:</label>
-        <input type="text" name="modelo" value="{{ carro['modelo'] if carro else '' }}" required><br>
+{% block content %}
 
-        <label>Categoria:</label>
-        <input type="text" name="categoria" value="{{ carro['categoria'] if carro else '' }}"><br>
+<h1 class="admin-title">{{ "Editar" if carro else "Adicionar" }} Veículo</h1>
 
-        <label>Tipo:</label>
-        <input type="text" name="tipo" value="{{ carro['tipo'] if carro else '' }}"><br>
+<a href="{{ url_for('admin_veiculos') }}" class="btn-add">Voltar à lista de veículos</a>
 
-        <label>Valor diária:</label>
-        <input type="number" name="valor_diaria" step="0.01" value="{{ carro['valor_diaria'] if carro else '' }}"><br>
+<div class="admin-form">
 
+<form method="POST" enctype="multipart/form-data">
 
-        <label>Descrição:</label>
-        <textarea name="descricao">{{ carro['descricao'] if carro else '' }}</textarea><br>
+    <label>Marca:</label>
+    <input type="text" name="marca" value="{{ carro['marca'] if carro else '' }}" required>
 
-        <label>Imagem:</label>
-        <input type="file" name="imagem"><br>
-        {% if carro and carro['imagem'] %}
-            <p>Imagem atual: <img src="{{ url_for('static', filename='img/' ~ carro['imagem']) }}" width="100"></p>
-        {% endif %}
+    <label>Modelo:</label>
+    <input type="text" name="modelo" value="{{ carro['modelo'] if carro else '' }}" required>
 
+    <label>Categoria:</label>
+    <input type="text" name="categoria" value="{{ carro['categoria'] if carro else '' }}">
 
-        <button type="submit">{% if carro %}Atualizar{% else %}Adicionar{% endif %}</button>
-    </form>
-</body>
+    <label>Tipo:</label>
+    <input type="text" name="tipo" value="{{ carro['tipo'] if carro else '' }}">
+
+    <label>Valor diária:</label>
+    <input type="number" name="valor_diaria" step="0.01" value="{{ carro['valor_diaria'] if carro else '' }}">
+
+    <label>Descrição:</label>
+    <textarea name="descricao">{{ carro['descricao'] if carro else '' }}</textarea>
+
+    <label>Imagem:</label>
+    <input type="file" name="imagem">
+
+    {% if carro and carro['imagem'] %}
+        <p>Imagem atual:</p>
+        <img src="{{ url_for('static', filename='img/' ~ carro['imagem']) }}" width="100">
+    {% endif %}
+
+    <button type="submit" class="btn-add">
+        {{ "Atualizar" if carro else "Adicionar" }}
+    </button>
+</form>
+
+</div>
+
+{% endblock %}
+
 </html>

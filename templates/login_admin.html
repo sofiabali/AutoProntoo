@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login Admin</title>
-</head>
-<body>
-    <h1>Login Administrativo</h1>
+{% extends "base.html" %}
+
+{% block title %}Login Admin{% endblock %}
+
+{% block content %}
+
+<h1 class="admin-title">Login Administrativo</h1>
+
+<div class="admin-form">
+
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <ul>
+        <ul class="flash-container">
         {% for category, msg in messages %}
-          <li>{{ msg }}</li>
+          <li class="flash">{{ msg }}</li>
         {% endfor %}
         </ul>
       {% endif %}
@@ -18,13 +21,14 @@
     <form method="post">
         <label>Email:</label>
         <input type="email" name="email" required>
-        <br>
+
         <label>Senha:</label>
         <input type="password" name="senha" required>
-        <br>
-        <button type="submit">Entrar</button>
+
+        <button type="submit" class="btn-add">Entrar</button>
     </form>
 
-    <a href="{{ url_for('index') }}">Voltar ao site</a>
-</body>
-</html>
+    <a href="{{ url_for('index') }}" class="btn-edit">Voltar ao site</a>
+</div>
+
+{% endblock %}
