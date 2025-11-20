@@ -1,34 +1,39 @@
 {% extends "base.html" %}
-
 {% block title %}Login Admin{% endblock %}
 
 {% block content %}
 
-<h1 class="admin-title">Login Administrativo</h1>
+<div class="cadastro-container">
+    <div class="form-card">
 
-<div class="admin-form">
+        <h2>Login Administrativo</h2>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash-container">
-        {% for category, msg in messages %}
-          <li class="flash">{{ msg }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-container">
+            {% for category, msg in messages %}
+              <li class="flash">{{ msg }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
 
-    <form method="post">
-        <label>Email:</label>
-        <input type="email" name="email" required>
+        <form method="post">
+            <div class="input-group">
+                <input type="email" name="email" placeholder="E-mail" required>
+            </div>
 
-        <label>Senha:</label>
-        <input type="password" name="senha" required>
+            <div class="input-group">
+                <input type="password" name="senha" placeholder="Senha" required>
+            </div>
 
-        <button type="submit" class="btn-add">Entrar</button>
-    </form>
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
 
-    <a href="{{ url_for('index') }}" class="btn-edit">Voltar ao site</a>
+        <a href="{{ url_for('index') }}" class="btn-secondary">Voltar ao site</a>
+
+    </div>
 </div>
 
 {% endblock %}
+

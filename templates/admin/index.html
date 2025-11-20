@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-
 {% block title %}Painel do Admin{% endblock %}
 
 {% block content %}
+<div class="cadastro-container">
+    <div class="form-card">
 
-<div class="admin-wrapper">
+        <h2>Painel Administrativo</h2>
+        <p class="admin-welcome">Bem-vindo, {{ usuario }}!</p>
 
-    <h1 class="admin-title">Bem-vindo, {{ usuario }}!</h1>
+        <div class="admin-links">
+            <a class="btn-primary" href="{{ url_for('admin_veiculos') }}">Gerenciar Veículos</a>
+            <a class="btn-primary" href="{{ url_for('admin_clientes') }}">Ver Clientes</a>
+            <a class="btn-secondary" href="{{ url_for('logout') }}">Sair</a>
+        </div>
 
-    <div class="admin-links">
-        <a class="admin-btn" href="{{ url_for('admin_veiculos') }}">Gerenciar Veículos</a>
-        <a class="admin-btn" href="{{ url_for('admin_clientes') }}">Ver Clientes</a>
-        <a class="admin-btn" href="{{ url_for('logout') }}">Sair</a>
     </div>
-
 </div>
-
 {% endblock %}

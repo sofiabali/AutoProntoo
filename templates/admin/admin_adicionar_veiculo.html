@@ -1,50 +1,61 @@
 {% extends "base.html" %}
-
 {% block title %}{{ "Editar" if carro else "Adicionar" }} Veículo{% endblock %}
 
 {% block content %}
 
-<h1 class="admin-title">{{ "Editar" if carro else "Adicionar" }} Veículo</h1>
+<div class="cadastro-container">
+    <div class="form-card">
 
-<a href="{{ url_for('admin_veiculos') }}" class="btn-add">Voltar à lista de veículos</a>
+        <h2>{{ "Editar" if carro else "Adicionar" }} Veículo</h2>
 
-<div class="admin-form">
+        <a href="{{ url_for('admin_veiculos') }}" class="btn-secondary">Voltar</a>
 
-<form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
 
-    <label>Marca:</label>
-    <input type="text" name="marca" value="{{ carro['marca'] if carro else '' }}" required>
+            <div class="input-group">
+                <input type="text" name="marca" placeholder="Marca" 
+                       value="{{ carro['marca'] if carro else '' }}" required>
+            </div>
 
-    <label>Modelo:</label>
-    <input type="text" name="modelo" value="{{ carro['modelo'] if carro else '' }}" required>
+            <div class="input-group">
+                <input type="text" name="modelo" placeholder="Modelo"
+                       value="{{ carro['modelo'] if carro else '' }}" required>
+            </div>
 
-    <label>Categoria:</label>
-    <input type="text" name="categoria" value="{{ carro['categoria'] if carro else '' }}">
+            <div class="input-group">
+                <input type="text" name="categoria" placeholder="Categoria"
+                       value="{{ carro['categoria'] if carro else '' }}">
+            </div>
 
-    <label>Tipo:</label>
-    <input type="text" name="tipo" value="{{ carro['tipo'] if carro else '' }}">
+            <div class="input-group">
+                <input type="text" name="tipo" placeholder="Tipo"
+                       value="{{ carro['tipo'] if carro else '' }}">
+            </div>
 
-    <label>Valor diária:</label>
-    <input type="number" name="valor_diaria" step="0.01" value="{{ carro['valor_diaria'] if carro else '' }}">
+            <div class="input-group">
+                <input type="number" step="0.01" name="valor_diaria" placeholder="Valor diária"
+                       value="{{ carro['valor_diaria'] if carro else '' }}">
+            </div>
 
-    <label>Descrição:</label>
-    <textarea name="descricao">{{ carro['descricao'] if carro else '' }}</textarea>
+            <div class="input-group">
+                <textarea name="descricao" placeholder="Descrição">{{ carro['descricao'] if carro else '' }}</textarea>
+            </div>
 
-    <label>Imagem:</label>
-    <input type="file" name="imagem">
+            <div class="input-group">
+                <input type="file" name="imagem">
+            </div>
 
-    {% if carro and carro['imagem'] %}
-        <p>Imagem atual:</p>
-        <img src="{{ url_for('static', filename='img/' ~ carro['imagem']) }}" width="100">
-    {% endif %}
+            {% if carro and carro['imagem'] %}
+                <p>Imagem atual:</p>
+                <img src="{{ url_for('static', filename='img/' ~ carro['imagem']) }}" width="120">
+            {% endif %}
 
-    <button type="submit" class="btn-add">
-        {{ "Atualizar" if carro else "Adicionar" }}
-    </button>
-</form>
+            <button type="submit" class="btn-primary">
+                {{ "Atualizar" if carro else "Adicionar" }}
+            </button>
+        </form>
 
+    </div>
 </div>
 
 {% endblock %}
-
-</html>
