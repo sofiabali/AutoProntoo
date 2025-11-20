@@ -330,12 +330,6 @@ def admin_veiculos_editar(vid):
 
 
 
-
-
-
-
-
-
 @app.route('/logout')
 def logout():
     session.pop('usuario', None)
