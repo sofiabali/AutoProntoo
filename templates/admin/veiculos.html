@@ -1,9 +1,54 @@
-<h1>Veículos</h1>
-<a href="{{ url_for('admin_dashboard') }}">Voltar</a>
-<a href="{{ url_for('admin_adicionar_veiculo') }}">Adicionar veículo</a>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Veículos - Painel Admin</title>
+</head>
+<body>
+    <h1>Veículos</h1>
+    <p><a href="{{ url_for('admin_dashboard') }}">Voltar ao Painel</a></p>
+    <p><a href="{{ url_for('admin_adicionar_veiculo') }}">Adicionar veículo</a></p>
 
-<ul>
-    {% for v in veiculos %}
-        <li>{{ v['marca'] }} {{ v['modelo'] }} - R$ {{ v['valor_diaria'] }}</li>
-    {% endfor %}
-</ul>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Categoria</th>
+                <th>Tipo</th>
+                <th>Valor diária</th>
+                <th>Imagem</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for v in veiculos %}
+            <tr>
+                <td>{{ v['id'] }}</td>
+                <td>{{ v['marca'] }}</td>
+                <td>{{ v['modelo'] }}</td>
+                <td>{{ v['categoria'] }}</td>
+                <td>{{ v['tipo'] }}</td>
+                <td>R$ {{ v['valor_diaria'] }}</td>
+                <td>
+                    {% if v['imagem'] %}
+                        <img src="{{ url_for('static', filename='img/' ~ v['imagem']) }}" width="80">
+                    {% else %}
+                        Sem imagem
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('admin_veiculos_editar', vid=v['id']) }}">Editar</a> |
+                    <form action="{{ url_for('admin_veiculos_deletar', vid=v['id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Deseja realmente excluir este veículo?')">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+

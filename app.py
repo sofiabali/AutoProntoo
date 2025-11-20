@@ -2,6 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+import os
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 app = Flask(__name__)
 app.secret_key = 'segredo123'
@@ -258,6 +265,72 @@ def admin_adicionar_veiculo():
         return redirect(url_for('admin_veiculos'))
 
     return render_template('admin/admin_adicionar_veiculo.html')
+
+
+
+@app.route('/admin/veiculos/deletar/<int:vid>', methods=['POST'])
+@login_required
+@role_required('admin')
+def admin_veiculos_deletar(vid):
+    conn = conectar_bd()
+    try:
+        conn.execute('DELETE FROM veiculos WHERE id = ?', (vid,))
+        conn.commit()
+    finally:
+        conn.close()
+    flash('Veículo removido com sucesso.', 'success')
+    return redirect(url_for('admin_veiculos'))
+
+@app.route('/admin/veiculos/editar/<int:vid>', methods=['GET', 'POST'])
+@login_required
+@role_required('admin')
+def admin_veiculos_editar(vid):
+    conn = conectar_bd()
+    carro = conn.execute('SELECT * FROM veiculos WHERE id=?', (vid,)).fetchone()
+    conn.close()
+
+    if not carro:
+        flash('Veículo não encontrado.', 'error')
+        return redirect(url_for('admin_veiculos'))
+
+    if request.method == 'POST':
+        marca = request.form.get('marca')
+        modelo = request.form.get('modelo')
+        categoria = request.form.get('categoria')
+        tipo = request.form.get('tipo')
+        valor_diaria = request.form.get('valor_diaria') or 0
+        descricao = request.form.get('descricao')
+
+        # imagem
+        imagem_filename = carro['imagem'] or 'semfoto.png'
+        if 'imagem' in request.files:
+            f = request.files['imagem']
+            if f.filename != '' and allowed_file(f.filename):
+                from werkzeug.utils import secure_filename
+                import os
+                filename = secure_filename(f.filename)
+                caminho = os.path.join('static/img', filename)
+                f.save(caminho)
+                imagem_filename = filename
+
+        # Atualiza o veículo
+        conn = conectar_bd()
+        conn.execute('''
+            UPDATE veiculos
+            SET marca=?, modelo=?, categoria=?, tipo=?, valor_diaria=?, descricao=?, imagem=?
+            WHERE id=?
+        ''', (marca, modelo, categoria, tipo, valor_diaria, descricao, imagem_filename, vid))
+        conn.commit()
+        conn.close()
+
+        flash('Veículo atualizado com sucesso!', 'success')
+        return redirect(url_for('admin_veiculos'))
+
+    return render_template('admin/admin_adicionar_veiculo.html', carro=carro)
+
+
+
+
 
 
 
