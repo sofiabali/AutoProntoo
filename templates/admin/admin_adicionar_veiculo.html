@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Veículo - Admin</title>
+</head>
+<body>
+    <h1>Adicionar Novo Veículo</h1>
+    <p><a href="{{ url_for('admin_veiculos') }}">Voltar para lista de veículos</a></p>
+
+    <form method="POST">
+        <label>Marca: <input type="text" name="marca" required></label><br>
+        <label>Modelo: <input type="text" name="modelo" required></label><br>
+        <label>Valor da diária: <input type="number" name="valor_diaria" step="0.01"></label><br>
+        <label>Categoria: <input type="text" name="categoria"></label><br>
+        <label>Tipo: <input type="text" name="tipo"></label><br>
+        <label>Descrição: <textarea name="descricao"></textarea></label><br>
+        <button type="submit">Adicionar</button>
+    </form>
+</body>
+</html>

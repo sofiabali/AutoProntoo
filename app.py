@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = 'segredo123'
@@ -49,6 +50,34 @@ def criar_tabelas():
     conn.close()
 
 criar_tabelas()
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'usuario' not in session:
+            flash('Faça login para acessar esta página.', 'error')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated
+
+def role_required(role):
+    def decorator(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            if 'usuario' not in session:
+                flash('Faça login para acessar esta página.', 'error')
+                return redirect(url_for('login'))
+
+            conn = sqlite3.connect('locadora.db')
+            conn.row_factory = sqlite3.Row
+            user = conn.execute('SELECT * FROM clientes WHERE nome = ?', (session['usuario'],)).fetchone()
+            conn.close()
+
+            if not user or user['role'] != role:
+                abort(403)  # proíbe acesso
+            return f(*args, **kwargs)
+        return decorated
+    return decorator
 
 
 # Rotas principais
@@ -140,6 +169,9 @@ def login():
 
     return render_template('login.html')
 
+
+
+
 #admin login
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -196,6 +228,37 @@ def admin_clientes():
     conn.close()
 
     return render_template('admin_clientes.html', clientes=clientes, usuario=session['usuario'])
+
+
+@app.route('/admin/veiculos/adicionar', methods=['GET', 'POST'])
+@login_required
+@role_required('admin')
+def admin_adicionar_veiculo():
+    if request.method == 'POST':
+        modelo = request.form.get('modelo')
+        marca = request.form.get('marca')
+        ano = request.form.get('ano')
+        valor_diaria = request.form.get('valor_diaria')
+        categoria = request.form.get('categoria')
+        tipo = request.form.get('tipo')
+        novo_usado = request.form.get('novo_usado')
+        descricao = request.form.get('descricao')
+
+        conn = conectar_bd()
+        try:
+            conn.execute('''
+                INSERT INTO veiculos (modelo, marca, ano, valor_diaria, categoria, tipo, novo_usado, descricao)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (modelo, marca, ano, valor_diaria, categoria, tipo, novo_usado, descricao))
+            conn.commit()
+        finally:
+            conn.close()
+
+        flash('Veículo adicionado com sucesso!', 'success')
+        return redirect(url_for('admin_veiculos'))
+
+    return render_template('admin/admin_adicionar_veiculo.html')
+
 
 
 
