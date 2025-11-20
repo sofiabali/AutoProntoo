@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'segredo123'
@@ -95,15 +96,22 @@ def cadastro_cliente():
         cpf = request.form['cpf']
         senha = request.form['senha']
 
+        senha_hash = generate_password_hash(senha)
+
         conn = conectar_bd()
         cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO clientes (nome, email, telefone, cpf, senha)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (nome, email, telefone, cpf, senha))
-        conn.commit()
-        conn.close()
+        try:
+            cursor.execute('''
+                INSERT INTO clientes (nome, email, telefone, cpf, senha)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (nome, email, telefone, cpf, senha_hash))
+            conn.commit()
+        except sqlite3.IntegrityError:
+            flash('E-mail ou CPF já cadastrado!', 'error')
+            conn.close()
+            return redirect(url_for('cadastro_cliente'))
 
+        conn.close()
         flash('Cadastro realizado com sucesso! Faça login.', 'success')
         return redirect(url_for('login'))
 
@@ -119,16 +127,16 @@ def login():
 
         conn = conectar_bd()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM clientes WHERE email = ? AND senha = ?', (email, senha))
+        cursor.execute('SELECT * FROM clientes WHERE email = ?', (email,))
         cliente = cursor.fetchone()
         conn.close()
 
-        if cliente:
+        if cliente and check_password_hash(cliente['senha'], senha):
             session['usuario'] = cliente['nome']
             flash(f'Bem-vindo, {cliente["nome"]}!', 'success')
             return redirect(url_for('index'))
-        else:
-            flash('E-mail ou senha incorretos.', 'error')
+
+        flash('E-mail ou senha incorretos.', 'error')
 
     return render_template('login.html')
 
@@ -137,6 +145,7 @@ def logout():
     session.pop('usuario', None)
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
+
 
 # Carrinho
 
@@ -158,8 +167,6 @@ def reservar(carro_id):
             flash('Esse carro já está no seu carrinho.', 'info')
             return redirect(url_for('carrinho'))
 
-    imagem = carro['imagem'] if 'imagem' in carro.keys() and carro['imagem'] else 'semfoto.png'
-
     session['carrinho'].append({
         'id': carro['id'],
         'marca': carro['marca'],
@@ -175,7 +182,6 @@ def reservar(carro_id):
         'combustivel': carro['combustivel'] if 'combustivel' in carro.keys() else None,
         'cambio': carro['cambio'] if 'cambio' in carro.keys() else None
     })
-
 
     flash(f'{carro["modelo"]} adicionado ao carrinho!', 'success')
     return redirect(url_for('carrinho'))
@@ -214,7 +220,6 @@ def finalizar_reserva():
     flash('Reserva finalizada com sucesso! ✅', 'success')
     return redirect(url_for('carrinho'))
 
-
 @app.route('/remover/<int:carro_id>')
 def remover(carro_id):
     if 'carrinho' in session:
@@ -238,10 +243,10 @@ def minha_conta():
     cliente = conn.execute('SELECT * FROM clientes WHERE nome = ?', (usuario,)).fetchone()
     conn.close()
 
-    return render_template('minha_conta.html', 
-                           usuario=cliente['nome'], 
-                           email=cliente['email'], 
-                           telefone=cliente['telefone'], 
+    return render_template('minha_conta.html',
+                           usuario=cliente['nome'],
+                           email=cliente['email'],
+                           telefone=cliente['telefone'],
                            cpf=cliente['cpf'])
 
 
@@ -249,4 +254,5 @@ def minha_conta():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
