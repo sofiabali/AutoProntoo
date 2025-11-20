@@ -26,7 +26,7 @@ def criar_tabelas():
             imagem TEXT,
             categoria TEXT,
             tipo TEXT,
-            novo_usado TEXT
+            role TEXT DEFAULT 'cliente'
         )
     ''')
 
@@ -140,11 +140,73 @@ def login():
 
     return render_template('login.html')
 
+#admin login
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+
+        conn = conectar_bd()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM clientes WHERE email = ?', (email,))
+        admin = cursor.fetchone()
+        conn.close()
+
+        if admin and check_password_hash(admin['senha'], senha) and admin['role'] == 'admin':
+            session['usuario'] = admin['nome']
+            session['role'] = 'admin'
+            flash(f'Bem-vindo, {admin["nome"]}!', 'success')
+            return redirect(url_for('admin_dashboard'))
+
+
+        flash('E-mail ou senha incorretos / sem permissão administrativa.', 'error')
+
+    return render_template('login_admin.html')
+
+@app.route('/admin')
+def admin_dashboard():
+    if 'usuario' not in session or session.get('role') != 'admin':
+        flash('Acesso negado!', 'error')
+        return redirect(url_for('admin_login'))
+
+    return render_template('admin/index.html', usuario=session['usuario'])
+
+@app.route('/admin/veiculos')
+def admin_veiculos():
+    if 'role' not in session or session['role'] != 'admin':
+        flash('Acesso negado!', 'error')
+        return redirect(url_for('admin_login'))
+
+    conn = conectar_bd()
+    veiculos = conn.execute('SELECT * FROM veiculos').fetchall()
+    conn.close()
+    return render_template('admin/veiculos.html', veiculos=veiculos)
+
+@app.route('/admin/clientes')
+def admin_clientes():
+    # verifica se está logado como admin
+    if 'usuario' not in session or session.get('role') != 'admin':
+        flash('Acesso negado!', 'error')
+        return redirect(url_for('admin_login'))
+
+    conn = conectar_bd()
+    clientes = conn.execute('SELECT id, nome, email, telefone, cpf FROM clientes').fetchall()
+    conn.close()
+
+    return render_template('admin_clientes.html', clientes=clientes, usuario=session['usuario'])
+
+
+
+
 @app.route('/logout')
 def logout():
     session.pop('usuario', None)
     flash('Você saiu da conta.', 'info')
     return redirect(url_for('index'))
+
+
 
 
 # Carrinho

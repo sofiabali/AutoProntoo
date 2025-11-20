@@ -1,0 +1,9 @@
+<h1>Veículos</h1>
+<a href="{{ url_for('admin_index') }}">Voltar</a>
+<a href="{{ url_for('admin_adicionar_veiculo') }}">Adicionar veículo</a>
+
+<ul>
+    {% for v in veiculos %}
+        <li>{{ v['marca'] }} {{ v['modelo'] }} - R$ {{ v['valor_diaria'] }}</li>
+    {% endfor %}
+</ul>
