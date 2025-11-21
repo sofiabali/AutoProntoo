@@ -1,58 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>{% block title %}AutoPronto{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-  <div class="main-content">
-    <header>
-      <h1>AutoPronto</h1>
-      <nav>
-        <a href="{{ url_for('index') }}">Início</a>
-        <a href="{{ url_for('carros') }}">Carros</a>
-        <div class="dropdown">
-            <input type="checkbox" id="toggleConta">
-            <label for="toggleConta" class="nav-link minha-conta-btn">Minha Conta</label>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}AutoPronto{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-content">
+      <header>
+        <h1>AutoPronto</h1>
+        <nav>
+          <a href="{{ url_for('index') }}">Início</a>
+          <a href="{{ url_for('carros') }}">Carros</a>
+          <div class="dropdown">
+            <input type="checkbox" id="toggleConta" />
+            <label for="toggleConta" class="nav-link minha-conta-btn"
+              >Minha Conta</label
+            >
 
             <div class="dropdown-menu">
-                {% if 'usuario' in session %}
-                    <a href="{{ url_for('minha_conta') }}">Perfil</a>
-                    <a href="{{ url_for('logout') }}">Sair</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}">Login</a>
-                    <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
-                {% endif %}
+              {% if 'usuario' in session %}
+              <a href="{{ url_for('minha_conta') }}">Perfil</a>
+              <a href="{{ url_for('logout') }}">Sair</a>
+              {% else %}
+              <a href="{{ url_for('login') }}">Login</a>
+              <a href="{{ url_for('cadastro_cliente') }}">Cadastrar</a>
+              {% endif %}
             </div>
-        </div>
-
-
-
-        <a href="{{ url_for('carrinho') }}" class="carrinho-link">
-          <i class="fa-solid fa-cart-shopping"></i>
-        </a>
-      </nav>
-    </header>
-
-    <main>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <div class="flash-container">
-            {% for category, message in messages %}
-              <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
           </div>
-        {% endif %}
-      {% endwith %}
 
-      {% block content %}{% endblock %}
-    </main>
-  </div>
+          <!-- Botão de Acessibilidade -->
+          <button
+            id="access-btn"
+            class="accessibility-btn"
+            aria-label="Acessibilidade"
+          >
+            <i class="fa-solid fa-universal-access"></i>
+          </button>
 
-  {% include 'footer.html' %}
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+          <!-- Menu de Acessibilidade -->
+          <div id="access-menu" class="accessibility-menu" aria-hidden="true">
+            <button onclick="increaseFont()">Aumentar Fonte</button>
+            <button onclick="decreaseFont()">Diminuir Fonte</button>
+            <button onclick="resetFont()">Fonte Normal</button>
+            <button onclick="toggleContrast()">Alto Contraste</button>
+          </div>
 
-</body>
+          <a href="{{ url_for('carrinho') }}" class="carrinho-link">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %} {% endwith %} {% block content %}{% endblock %}
+      </main>
+    </div>
+
+    {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
 </html>

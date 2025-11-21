@@ -1,165 +1,205 @@
-
 // fade-in sessoes
 
-const fadeElements = document.querySelectorAll('.fade-in');
+const fadeElements = document.querySelectorAll(".fade-in");
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
     });
-}, { threshold: 0.1 });
+  },
+  { threshold: 0.1 }
+);
 
-fadeElements.forEach(el => observer.observe(el));
-
+fadeElements.forEach((el) => observer.observe(el));
 
 // cards
-document.querySelectorAll('.carro-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'scale(1.05)';
-        card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
-    });
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'scale(1)';
-        card.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-    });
+document.querySelectorAll(".carro-card").forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    card.style.transform = "scale(1.05)";
+    card.style.boxShadow = "0 10px 20px rgba(0,0,0,0.2)";
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "scale(1)";
+    card.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
+  });
 });
-
 
 // setinha
-const backToTop = document.createElement('button');
-backToTop.textContent = '↑';
-backToTop.id = 'backToTop';
+const backToTop = document.createElement("button");
+backToTop.textContent = "↑";
+backToTop.id = "backToTop";
 document.body.appendChild(backToTop);
 
-backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+backToTop.addEventListener("click", () =>
+  window.scrollTo({ top: 0, behavior: "smooth" })
+);
 
-window.addEventListener('scroll', () => {
-    backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+window.addEventListener("scroll", () => {
+  backToTop.style.display = window.scrollY > 300 ? "block" : "none";
 });
-
 
 // mensagens automaticas
-document.querySelectorAll('.flash').forEach(msg => {
-    setTimeout(() => {
-        msg.style.opacity = '0';
-        msg.style.transition = 'opacity 0.5s ease';
-    }, 3000);
+document.querySelectorAll(".flash").forEach((msg) => {
+  setTimeout(() => {
+    msg.style.opacity = "0";
+    msg.style.transition = "opacity 0.5s ease";
+  }, 3000);
 });
-
 
 // efeito nos inputs dos forms
-document.querySelectorAll('input, textarea').forEach(input => {
-    input.addEventListener('focus', () => {
-        input.style.borderColor = '#ff6600';
-        input.style.boxShadow = '0 0 5px rgba(255,102,0,0.5)';
-    });
-    input.addEventListener('blur', () => {
-        input.style.borderColor = '#ccc';
-        input.style.boxShadow = 'none';
-    });
+document.querySelectorAll("input, textarea").forEach((input) => {
+  input.addEventListener("focus", () => {
+    input.style.borderColor = "#ff6600";
+    input.style.boxShadow = "0 0 5px rgba(255,102,0,0.5)";
+  });
+  input.addEventListener("blur", () => {
+    input.style.borderColor = "#ccc";
+    input.style.boxShadow = "none";
+  });
 });
-
 
 // navegaçao
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) target.scrollIntoView({ behavior: "smooth" });
+  });
 });
 
 // modal de finalizaçao
-document.addEventListener('DOMContentLoaded', () => {
-  const finalizarBtn = document.querySelector('.btn-finalizar');
-  const modal = document.getElementById('checkoutModal');
-  const cancelBtn = document.getElementById('cancelBtn');
-  const checkoutForm = document.getElementById('checkoutForm');
+document.addEventListener("DOMContentLoaded", () => {
+  const finalizarBtn = document.querySelector(".btn-finalizar");
+  const modal = document.getElementById("checkoutModal");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const checkoutForm = document.getElementById("checkoutForm");
 
   if (!finalizarBtn || !modal || !cancelBtn || !checkoutForm) return;
 
-  finalizarBtn.addEventListener('click', () => {
-    modal.style.display = 'flex';
+  finalizarBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
   });
 
-  cancelBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
+  cancelBtn.addEventListener("click", () => {
+    modal.style.display = "none";
   });
 
-  checkoutForm.addEventListener('submit', async (e) => {
+  checkoutForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(checkoutForm);
 
     try {
-      const response = await fetch('/finalizar_reserva', {
-        method: 'POST',
-        body: formData
+      const response = await fetch("/finalizar_reserva", {
+        method: "POST",
+        body: formData,
       });
 
       if (response.ok) {
-        alert('Reserva finalizada com sucesso! Verifique seu email. 📧');
-        window.location.href = '/carros';
+        alert("Reserva finalizada com sucesso! Verifique seu email. 📧");
+        window.location.href = "/carros";
       } else {
-        alert('Erro ao finalizar a reserva.');
+        alert("Erro ao finalizar a reserva.");
       }
     } catch (error) {
       console.error(error);
-      alert('Erro na requisição.');
+      alert("Erro na requisição.");
     }
   });
 });
 
-  // vantagens
-document.addEventListener('DOMContentLoaded', () => {
-  const prev = document.querySelector('.prev');
-  const next = document.querySelector('.next');
-  const carrossel = document.querySelector('.carrossel');
+// vantagens
+document.addEventListener("DOMContentLoaded", () => {
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+  const carrossel = document.querySelector(".carrossel");
 
   if (prev && next && carrossel) {
-    const cardWidth = 420 + 20; 
-    prev.addEventListener('click', () => {
-      carrossel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    const cardWidth = 420 + 20;
+    prev.addEventListener("click", () => {
+      carrossel.scrollBy({ left: -cardWidth, behavior: "smooth" });
     });
 
-    next.addEventListener('click', () => {
-      carrossel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    next.addEventListener("click", () => {
+      carrossel.scrollBy({ left: cardWidth, behavior: "smooth" });
     });
   }
 });
 
 // soma das diarias
 document.addEventListener("DOMContentLoaded", () => {
-    const retirada = document.getElementById("retirada");
-    const devolucao = document.getElementById("devoluçao");
-    const precoFinal = document.getElementById("precoFinal");
+  const retirada = document.getElementById("retirada");
+  const devolucao = document.getElementById("devoluçao");
+  const precoFinal = document.getElementById("precoFinal");
 
-    const precoBase = parseFloat(precoFinal.innerText); 
+  const precoBase = parseFloat(precoFinal.innerText);
 
-    function calcularDias() {
-        if (!retirada.value || !devolucao.value) return;
+  function calcularDias() {
+    if (!retirada.value || !devolucao.value) return;
 
-        const data1 = new Date(retirada.value);
-        const data2 = new Date(devolucao.value);
+    const data1 = new Date(retirada.value);
+    const data2 = new Date(devolucao.value);
 
-        if (data2 < data1) {
-            precoFinal.innerText = "0.00";
-            return;
-        }
-
-        let diff = data2 - data1;
-
-        let dias = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;  
-
-        let total = precoBase * dias;
-
-        precoFinal.innerText = total.toFixed(2);
+    if (data2 < data1) {
+      precoFinal.innerText = "0.00";
+      return;
     }
 
-    retirada.addEventListener("change", calcularDias);
-    devolucao.addEventListener("change", calcularDias);
+    let diff = data2 - data1;
+
+    let dias = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+
+    let total = precoBase * dias;
+
+    precoFinal.innerText = total.toFixed(2);
+  }
+
+  retirada.addEventListener("change", calcularDias);
+  devolucao.addEventListener("change", calcularDias);
 });
 
+// ======================
+// Menu de acessibilidade
+// ======================
+let baseFontSize = 1;
 
+// Mostrar/ocultar menu
+document.getElementById("access-btn").addEventListener("click", () => {
+  const menu = document.getElementById("access-menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+});
+
+// AUMENTAR FONTE
+function increaseFont() {
+  baseFontSize += 0.2;
+  document.body.style.fontSize = baseFontSize + "em";
+}
+
+// DIMINUIR FONTE
+function decreaseFont() {
+  baseFontSize = Math.max(0.6, baseFontSize - 0.2);
+  document.body.style.fontSize = baseFontSize + "em";
+}
+
+// RESETAR FONTE
+function resetFont() {
+  baseFontSize = 1;
+  document.body.style.fontSize = "1em";
+}
+
+// MODO ALTO CONTRASTE
+function toggleContrast() {
+  document.body.classList.toggle("high-contrast");
+}
+
+document.addEventListener("click", (e) => {
+  const menu = document.getElementById("access-menu");
+  const btn = document.getElementById("access-btn");
+
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.style.display = "none";
+  }
+});
