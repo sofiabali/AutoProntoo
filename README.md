@@ -8,7 +8,7 @@ O sistema simula uma locadora de veículos, permitindo que usuários realizem re
 
 Projeto desenvolvido por:
 Sofia Bali,
-Rhayane Ribeiro,
+Rhayane Ribeiro e
 Sabryna Andrade.
 
 🎯 Objetivo do Projeto
