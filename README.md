@@ -7,9 +7,9 @@ O sistema simula uma locadora de veículos, permitindo que usuários realizem re
 👥 Integrantes do Grupo
 
 Projeto desenvolvido por:
-Sofia Bali
-Rhayane Ribeiro
-Sabryna Andrade
+Sofia Bali,
+Rhayane Ribeiro,
+Sabryna Andrade.
 
 🎯 Objetivo do Projeto
 
@@ -18,7 +18,7 @@ Exibir carros disponíveis para locação
 Realizar reservas
 Gerenciar veículos (adicionar, editar e remover)
 Organizar tudo utilizando Flask, banco de dados SQLite e templates Jinja2
-Aplicar conceitos de front-end com HTML, CSS e responsividade
+Aplicar conceitos de front-end com HTML, CSS e responsividade.
 
 🛠️ Tecnologias Utilizadas
 
