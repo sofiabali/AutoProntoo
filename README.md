@@ -32,20 +32,36 @@ JavaScript – interação em algumas páginas
 Estrutura do Projeto 
 exemplo:
 
-AutoPronto/
-│
-├── app.py
-├── locadora.db
-├── static/
-│   ├── img/
-│   ├── style.css
-│   └── script.js
-│
-└── templates/
-    ├── index.html
-    ├── login.html
-    ├── painel.html
-    ├── adicionar_carro.html
-    ├── editar_carro.html
-    ├── reservar.html
-    └── ...
+    AutoPronto/
+    
+    │
+    
+    ├── app.py
+    
+    ├── locadora.db
+    
+    ├── static/
+    
+    │   ├── img/
+    
+    │   ├── style.css
+    
+    │   └── script.js
+    
+    │
+    
+    └── templates/
+
+        ├── index.html
+        
+        ├── login.html
+        
+        ├── painel.html
+        
+        ├── adicionar_carro.html
+        
+        ├── editar_carro.html
+        
+        ├── base.html
+        
+        └── ...
