@@ -37,7 +37,24 @@ header {
   z-index: 1000;
 }
 
+/* Estilização da imagem da logo */
+.header-logo {
+    height: 60px;
+    width: auto; 
+    margin-right: 10px; 
+    filter: none;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+
 header h1 {
+  display: flex;
+  align-items: center; 
+  margin: 0;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 1.6rem;
@@ -408,7 +425,7 @@ textarea {
   border-radius: 10px;
   padding: 3rem 2.5rem;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -1092,10 +1109,13 @@ body {
 }
 
 .admin-links {
-  display: flex;
-  flex-direction: column;
+  display: flex; /* Adiciona Flexbox */
+  flex-direction: column; /* Organiza os itens em coluna */
+  align-items: center; /* Centraliza os itens horizontalmente no container flex */
   gap: 12px;
   max-width: 300px;
+  /* Para centralizar o próprio bloco admin-links dentro do .auth-container, adicione: */
+  margin: 0 auto; 
 }
 
 .admin-btn {
@@ -1170,7 +1190,7 @@ body {
 
 .admin-table th,
 .admin-table td {
-  padding: 12px;
+  padding: 5px;
   border-bottom: 1px solid #eeeeee;
   text-align: left;
 }
@@ -1218,7 +1238,7 @@ body {
   cursor: pointer;
 }
 
-/* Tema alto contraste */
+
 body.high-contrast {
   background-color: black !important;
   color: rgb(0, 0, 0) !important;
@@ -1251,7 +1271,7 @@ body.high-contrast .depoimentos {
   background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
-body.high-contrast a {
+body.high-contrast .main-content a {
   color: cyan !important;
 }
 
@@ -1266,4 +1286,32 @@ body.high-contrast .accessibility-btn {
 body.high-contrast header,
 body.high-contrast footer {
   background: #000 !important;
+}
+
+body.high-contrast .admin-links .btn-primary {
+    color: #ffffff !important;
+}
+
+body.high-contrast .admin-links .btn-secondary {
+    color: #007bff !important;
+}
+
+body.high-contrast .como-funciona h2 {
+    color: #ffffff !important;
+}
+
+body.high-contrast .depoimentos h2 {
+    color: #ffffff !important;
+}
+
+body.high-contrast .main-content,
+body.high-contrast .cadastro-container {
+    background-color: black !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+body.high-contrast .auth-container {
+    background-color: #ffffff !important; 
+    color: black !important; 
+    border: 1px solid #ffffff !important; 
 }

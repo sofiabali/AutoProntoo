@@ -15,7 +15,11 @@
   <body>
     <div class="main-content">
       <header>
-        <h1>AutoPronto</h1>
+        <h1><img 
+            src="{{ url_for('static', filename='img/logo.png') }}" 
+            alt="Logo da AutoPronto" 
+            class="header-logo"
+        >AutoPronto</h1>
         <nav>
           <a href="{{ url_for('index') }}">Início</a>
           <a href="{{ url_for('carros') }}">Carros</a>
