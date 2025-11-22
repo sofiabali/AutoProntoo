@@ -223,8 +223,8 @@ def admin_veiculos():
     conn.close()
     return render_template('admin/veiculos.html', veiculos=veiculos)
 
-@app.route('/admin/clientes')
-def admin_clientes():
+@app.route('/admin/usuarios')
+def admin_usuarios():
     # verifica se está logado como admin
     if 'usuario' not in session or session.get('role') != 'admin':
         flash('Acesso negado!', 'error')
@@ -234,7 +234,7 @@ def admin_clientes():
     clientes = conn.execute('SELECT id, nome, email, telefone, cpf FROM clientes').fetchall()
     conn.close()
 
-    return render_template('admin_clientes.html', clientes=clientes, usuario=session['usuario'])
+    return render_template('admin_usuarios.html', clientes=clientes, usuario=session['usuario'])
 
 
 @app.route('/admin/veiculos/adicionar', methods=['GET', 'POST'])
