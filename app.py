@@ -207,7 +207,7 @@ def admin_login():
 @app.route('/admin')
 def admin_dashboard():
     if 'usuario' not in session or session.get('role') != 'admin':
-        flash('Acesso negado!', 'error')
+        flash('Faça o login para prosseguir!', 'error')
         return redirect(url_for('admin_login'))
 
     return render_template('admin/index.html', usuario=session['usuario'])

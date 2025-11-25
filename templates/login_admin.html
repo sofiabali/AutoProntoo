@@ -8,16 +8,6 @@
 
         <h2>Login Administrativo</h2>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <ul class="flash-container">
-            {% for category, msg in messages %}
-              <li class="flash">{{ msg }}</li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
-
         <form method="post">
             <div class="input-group">
                 <input type="email" name="email" placeholder="E-mail" required>

@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash
 import sqlite3
 
-senha = "123456"  # escolha sua senha
+senha = "123456"  
 hash_senha = generate_password_hash(senha)
 
 conn = sqlite3.connect('locadora.db')
