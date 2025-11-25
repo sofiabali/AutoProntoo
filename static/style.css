@@ -1387,3 +1387,41 @@ body.high-contrast .auth-container {
   background: #08a07f;
   transform: scale(1.05);
 }
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+.styled-table thead tr {
+    background-color: #4a90e2;
+    color: white;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #e8f0ff;
+    transition: 0.3s;
+}
+
+.mensagem {
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+}

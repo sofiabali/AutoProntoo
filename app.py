@@ -328,6 +328,17 @@ def admin_veiculos_editar(vid):
 
     return render_template('admin/admin_adicionar_veiculo.html', carro=carro)
 
+@app.route('/admin_contatos')
+def admin_contatos():
+    conn = sqlite3.connect('locadora.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM contato ORDER BY id DESC")
+    mensagens = c.fetchall()
+    conn.close()
+
+    return render_template('admin/admin_contatos.html', mensagens=mensagens)
+
+
 
 
 @app.route('/logout')
@@ -470,11 +481,6 @@ def contato():
         return redirect(url_for('contato'))
 
     return render_template('fale_conosco.html')
-
-
-    
-
-    
 
 # Execução
 

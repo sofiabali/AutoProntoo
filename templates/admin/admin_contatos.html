@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Mensagens Recebidas{% endblock %}
+
+{% block content %}
+
+<div class="cadastro-container">
+    <div class="form-card">
+        <h2>Mensagens Recebidas</h2>
+
+        {% if mensagens|length == 0 %}
+            <p style="text-align:center; font-size:18px;">Nenhuma mensagem encontrada.</p>
+        {% else %}
+
+        <div class="table-wrapper">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Tipo</th>
+                        <th>Assunto</th>
+                        <th>Mensagem</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for m in mensagens %}
+                    <tr>
+                        <td>{{ m[0] }}</td>
+                        <td>{{ m[1] }}</td>
+                        <td>{{ m[2] }}</td>
+                        <td>{{ m[3] }}</td>
+                        <td>{{ m[4] }}</td>
+                        <td>{{ m[5] }}</td>
+                        <td class="mensagem">{{ m[6] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% endif %}
+        
+        <br>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}
