@@ -71,45 +71,115 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// modal de finalizaçao
+// =========================
+// ABRIR E FECHAR O MODAL
+// =========================
+
 document.addEventListener("DOMContentLoaded", () => {
-  const finalizarBtn = document.querySelector(".btn-finalizar");
-  const modal = document.getElementById("checkoutModal");
-  const cancelBtn = document.getElementById("cancelBtn");
-  const checkoutForm = document.getElementById("checkoutForm");
 
-  if (!finalizarBtn || !modal || !cancelBtn || !checkoutForm) return;
+    const modal = document.getElementById("checkoutModal");
+    const abrirBtn = document.getElementById("abrirCheckout");
 
-  finalizarBtn.addEventListener("click", () => {
-    modal.style.display = "flex";
-  });
-
-  cancelBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
-
-  checkoutForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const formData = new FormData(checkoutForm);
-
-    try {
-      const response = await fetch("/finalizar_reserva", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        alert("Reserva finalizada com sucesso! Verifique seu email. 📧");
-        window.location.href = "/carros";
-      } else {
-        alert("Erro ao finalizar a reserva.");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Erro na requisição.");
+    if (abrirBtn) {
+        abrirBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
     }
-  });
+
+    // ETAPAS DO CHECKOUT
+    const etapaA = document.getElementById("etapaA");
+    const etapaB = document.getElementById("etapaB");
+    const etapaC = document.getElementById("etapaC");
+
+    // Botões
+    const btnToEtapaB = document.getElementById("btnToEtapaB");
+    const btnToEtapaC = document.getElementById("btnToEtapaC");
+    const confirmarReserva = document.getElementById("confirmarReserva");
+
+    const voltarToA = document.getElementById("voltarToA");
+    const voltarToB = document.getElementById("voltarToB");
+
+    // Avançar para etapa B
+    btnToEtapaB.addEventListener("click", () => {
+        etapaA.style.display = "none";
+        etapaB.style.display = "block";
+    });
+
+    // Voltar A ← B
+    voltarToA.addEventListener("click", () => {
+        etapaB.style.display = "none";
+        etapaA.style.display = "block";
+    });
+
+    // Avançar para etapa C
+    btnToEtapaC.addEventListener("click", () => {
+
+        const metodo = document.querySelector("input[name='pagamento']:checked");
+
+        if (!metodo) {
+            alert("Selecione uma forma de pagamento.");
+            return;
+        }
+
+        // PIX → Não mostra dados do cartão
+        if (metodo.value === "pix") {
+            document.getElementById("cartaoInfo").style.display = "none";
+            document.getElementById("infoPix").style.display = "block";
+        } else {
+            document.getElementById("cartaoInfo").style.display = "block";
+            document.getElementById("infoPix").style.display = "none";
+        }
+
+        etapaB.style.display = "none";
+        etapaC.style.display = "block";
+    });
+
+    // Voltar B ← C
+    voltarToB.addEventListener("click", () => {
+        etapaC.style.display = "none";
+        etapaB.style.display = "block";
+    });
+
+    // Finalizar reserva
+    confirmarReserva.addEventListener("click", () => {
+        alert("Reserva concluída com sucesso!");
+        window.location.href = "/";
+
+    });
+
+    // SOMA DAS DIÁRIAS
+    const retirada = document.getElementById("retirada");
+    const devolucao = document.getElementById("devolucao");
+    const precoFinal = document.getElementById("precoFinal");
+
+    if (retirada && devolucao && precoFinal) {
+
+        const precoBase = parseFloat(precoFinal.dataset.base);
+
+        function calcularDias() {
+            if (!retirada.value || !devolucao.value) return;
+
+            const d1 = new Date(retirada.value);
+            const d2 = new Date(devolucao.value);
+
+            if (d2 < d1) {
+                precoFinal.innerText = "0.00";
+                return;
+            }
+
+            const diff = d2 - d1;
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+            const total = precoBase * dias;
+
+            precoFinal.innerText = total.toFixed(2);
+        }
+
+        retirada.addEventListener("change", calcularDias);
+        devolucao.addEventListener("change", calcularDias);
+    }
+
 });
+
 
 // vantagens
 document.addEventListener("DOMContentLoaded", () => {
@@ -127,38 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
       carrossel.scrollBy({ left: cardWidth, behavior: "smooth" });
     });
   }
-});
-
-// soma das diarias
-document.addEventListener("DOMContentLoaded", () => {
-  const retirada = document.getElementById("retirada");
-  const devolucao = document.getElementById("devoluçao");
-  const precoFinal = document.getElementById("precoFinal");
-
-  const precoBase = parseFloat(precoFinal.innerText);
-
-  function calcularDias() {
-    if (!retirada.value || !devolucao.value) return;
-
-    const data1 = new Date(retirada.value);
-    const data2 = new Date(devolucao.value);
-
-    if (data2 < data1) {
-      precoFinal.innerText = "0.00";
-      return;
-    }
-
-    let diff = data2 - data1;
-
-    let dias = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
-
-    let total = precoBase * dias;
-
-    precoFinal.innerText = total.toFixed(2);
-  }
-
-  retirada.addEventListener("change", calcularDias);
-  devolucao.addEventListener("change", calcularDias);
 });
 
 // ======================

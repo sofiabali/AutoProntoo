@@ -12,63 +12,130 @@
           <img src="{{ url_for('static', filename='img/' + (carro.imagem if carro.imagem else 'semfoto.png')) }}" alt="{{ carro.modelo }}">
           <h3>{{ carro.marca }} {{ carro.modelo }}</h3>
           <p>Diária: R$ {{ "%.2f"|format(carro.valor_diaria) }}</p>
+
           {% if carro.descricao %}
           <p>{{ carro.descricao }}</p>
           {% endif %}
+
           <a class="btn-remover" href="{{ url_for('remover', carro_id=carro.id) }}">Remover</a>
         </div>
       {% endfor %}
     </div>
 
-
     <button class="btn-finalizar" id="abrirCheckout">Finalizar Reserva</button>
 
-    <!-- Modal de Checkout -->
-    <div id="checkoutModal" class="modal" style="display:none;"
-         data-diaria="{{ total_diarias if total_diarias is defined else 0 }}">
+
+    <!--MODAL  -->
+
+    <div id="checkoutModal" class="modal" style="display:none;">
       <div class="modal-content">
-        <h3>Finalize sua Reserva</h3>
-        <form id="checkoutForm">
 
-          <label for="retirada">Data de retirada:</label>
-          <input type="date" id="retirada" name="retirada" required>
+        <h3>Finalizar Reserva</h3>
 
-          <label for="devoluçao">Data de devoluçao:</label>
-          <input type="date" id="devoluçao" name="devoluçao" required>
+        <div class="etapa" id="etapaA">
 
-          <p><strong>Total:</strong> R$<span id="precoFinal">{{ total }}</span></p>
+          <label>Data de retirada:</label>
+          <input type="date" id="retirada" required>
 
+          <label>Data de devolução:</label>
+          <input type="date" id="devolucao" required>
 
-          <label for="unidade">Local de retirada:</label>
-          <select id="unidade" name="unidade" required>
-            <option value="">Selecione uma unidade</option>
+            <label>Valor total:</label>
+    <p class="preco-total">
+      R$ <span id="precoFinal"
+              data-base="{{ carrinho[0].valor_diaria }}">
+        {{ "%.2f"|format(carrinho[0].valor_diaria) }}
+      </span>
+    </p>
+
+            <label>Unidade de retirada:</label>
+          <select id="unidade" required>
+            <option value="">Selecione</option>
             <option value="AutoPronto - SP">AutoPronto - SP</option>
             <option value="AutoPronto - RJ">AutoPronto - RJ</option>
             <option value="AutoPronto - MG">AutoPronto - MG</option>
-            <option value="AutoPronto - MG">AutoPronto - BA</option>
-            <option value="AutoPronto - MG">AutoPronto - SC</option>
+            <option value="AutoPronto - BA">AutoPronto - BA</option>
+            <option value="AutoPronto - SC">AutoPronto - SC</option>
           </select>
 
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
+          <label>Email:</label>
+          <input type="email" id="email" required>
 
-          <label for="telefone">Telefone:</label>
-          <input type="tel" id="telefone" name="telefone" required>
+          <label>Telefone:</label>
+          <input type="tel" id="telefone" required>
 
-          <label for="endereco">Endereço:</label>
-          <input type="text" id="endereco" name="endereco" required>
+          <label>Endereço:</label>
+          <input type="text" id="endereco" required>
+
+          <button class="btn-confirmar" id="btnToEtapaB">Próximo ▸</button>
+        </div>
+
+
+        <!-- forma de pagamento -->
+        <div class="etapa" id="etapaB" style="display:none;">
+          <h4>Forma de Pagamento</h4>
+
+          <div class="pagamento-opcoes">
+
+            <div class="pagamento-opcao">
+              <input type="radio" name="pagamento" value="pix"> PIX (Pagamento na retirada)
+            </div>
+
+            <div class="pagamento-opcao">
+              <input type="radio" name="pagamento" value="credito"> Cartão de Crédito
+            </div>
+
+            <div class="pagamento-opcao">
+              <input type="radio" name="pagamento" value="debito"> Cartão de Débito
+            </div>
+
+          </div>
 
           <div class="modal-buttons">
-            <button type="submit" class="btn-confirmar">Confirmar Reserva</button>
-            <button type="button" id="cancelBtn">Cancelar</button>
+            <button class="btn-cancelar" id="voltarToA">Voltar</button>
+            <button class="btn-confirmar" id="btnToEtapaC">Próximo ▸</button>
           </div>
-        </form>
+        </div>
+
+
+        <!-- dados do cartao -->
+        <div class="etapa" id="etapaC" style="display:none;">
+
+          <div id="cartaoInfo">
+
+            <label>Número do cartão:</label>
+            <input type="text" id="numero_cartao" maxlength="19">
+
+            <label>Nome do titular:</label>
+            <input type="text" id="nome_titular">
+
+            <label>Validade:</label>
+            <input type="month" id="validade">
+
+            <label>CVV:</label>
+            <input type="text" id="cvv" maxlength="3">
+
+          </div>
+
+          <p class="info-pix" id="infoPix" style="display:none;">
+            Pagamento via <b>PIX</b> será feito no dia da retirada. ✔
+          </p>
+
+          <div class="modal-buttons">
+            <button class="btn-cancelar" id="voltarToB">Voltar</button>
+            <button class="btn-confirmar" id="confirmarReserva">Confirmar Reserva</button>
+          </div>
+
+        </div>
+
       </div>
     </div>
 
+
   {% else %}
-    <p>Seu carrinho está vazio </p>
+    <p>Seu carrinho está vazio.</p>
   {% endif %}
 </div>
 {% endblock %}
+
 
