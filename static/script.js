@@ -203,3 +203,17 @@ document.addEventListener("click", (e) => {
     menu.style.display = "none";
   }
 });
+document.getElementById("abrirContato").onclick = function () {
+    document.getElementById("contatoModal").style.display = "flex";
+};
+
+document.getElementById("fecharContato").onclick = function () {
+    document.getElementById("contatoModal").style.display = "none";
+};
+
+window.onclick = function (e) {
+    let modal = document.getElementById("contatoModal");
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+};

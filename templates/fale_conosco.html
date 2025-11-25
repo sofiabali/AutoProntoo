@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="contato-container">
+  <div class="contato-card">
+    <h2>Fale Conosco</h2>
+
+    <form method="POST" action="{{ url_for('contato') }}">
+
+
+      <div class="input-group">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" placeholder="Seu e-mail" required>
+      </div>
+
+      <div class="input-group">
+        <input type="tel" name="telefone" placeholder="Telefone (opcional)">
+      </div>
+
+      <div class="input-group">
+        <select name="tipo" required>
+          <option value="">Selecione o motivo</option>
+          <option value="Suporte">Suporte</option>
+          <option value="Reclamação">Reclamação</option>
+          <option value="Sugestão">Sugestão</option>
+          <option value="Elogio">Elogio</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="assunto" placeholder="Assunto" required>
+      </div>
+
+      <div class="input-group">
+        <textarea name="mensagem" placeholder="Digite sua mensagem..." required></textarea>
+      </div>
+
+      <button class="btn-contato" type="submit">Enviar</button>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}

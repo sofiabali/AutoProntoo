@@ -39,7 +39,7 @@ header {
 
 /* Estilização da imagem da logo */
 .header-logo {
-    height: 60px;
+    height: 70px;
     width: auto; 
     margin-right: 10px; 
     filter: none;
@@ -1314,4 +1314,76 @@ body.high-contrast .auth-container {
     background-color: #ffffff !important; 
     color: black !important; 
     border: 1px solid #ffffff !important; 
+}
+
+/* FORMULÁRIO FALE CONOSCO */
+.contato-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: var(--cinza);
+  padding: 2rem;
+}
+
+.contato-card {
+  background-color: var(--branco);
+  border-radius: 10px;
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.contato-card h2 {
+  text-align: center;
+  color: var(--azul);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 1rem;
+}
+
+/* Inputs e selects */
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 6px rgba(9, 168, 139, 0.4);
+  outline: none;
+}
+
+.input-group textarea {
+  height: 120px;
+  resize: none;
+}
+
+/* Botão */
+.btn-contato {
+  width: 100%;
+  padding: 12px;
+  background: var(--verde);
+  color: var(--branco);
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-contato:hover {
+  background: #08a07f;
+  transform: scale(1.05);
 }

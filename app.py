@@ -441,6 +441,40 @@ def minha_conta():
                            telefone=cliente['telefone'],
                            cpf=cliente['cpf'])
 
+@app.route('/fale_conosco')
+def fale_conosco():
+    return render_template('fale_conosco.html')
+
+@app.route('/contato', methods=['GET', 'POST'])
+def contato():
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        email = request.form.get('email')
+        telefone = request.form.get('telefone')
+        tipo = request.form.get('tipo')
+        assunto = request.form.get('assunto')
+        mensagem = request.form.get('mensagem')
+
+        conn = sqlite3.connect('locadora.db')
+        c = conn.cursor()
+
+        c.execute('''
+            INSERT INTO contato (nome, email, telefone, tipo, assunto, mensagem)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (nome, email, telefone, tipo, assunto, mensagem))
+
+        conn.commit()
+        conn.close()
+
+        flash('Mensagem enviada com sucesso! 📩', 'success')
+        return redirect(url_for('contato'))
+
+    return render_template('fale_conosco.html')
+
+
+    
+
+    
 
 # Execução
 
